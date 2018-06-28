@@ -3,13 +3,16 @@ package edu.pdx.cs410J.whitlock;
 import edu.pdx.cs410J.lang.Human;
 
 import java.util.ArrayList;
-                                                                                    
+import java.util.List;
+
 /**                                                                                 
  * This class is represents a <code>Student</code>.                                 
  */                                                                                 
-public class Student extends Human {                                                
-                                                                                    
-  /**                                                                               
+public class Student extends Human {
+
+  private final List<String> classes;
+
+  /**
    * Creates a new <code>Student</code>                                             
    *                                                                                
    * @param name                                                                    
@@ -25,6 +28,12 @@ public class Student extends Human {
   public Student(String name, ArrayList<String> classes, double gpa, String gender) {
     super(name);
 
+    validateGPA(gpa);
+
+    this.classes = classes;
+  }
+
+  private void validateGPA(double gpa) {
     if (gpa > 4.0) {
       throw new IllegalArgumentException("GPA cannot be greater than 4.0");
     }
@@ -47,7 +56,7 @@ public class Student extends Human {
    * <code>Student</code>.                                                          
    */                                                                               
   public String toString() {
-    throw new UnsupportedOperationException("Not implemented yet");
+    return this.classes.toString();
   }
 
   /**

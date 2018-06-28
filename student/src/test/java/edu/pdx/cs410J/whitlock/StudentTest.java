@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
@@ -44,6 +45,19 @@ public class StudentTest
 
   private void createStudentWithGpa(double gpa) {
     new Student("??", new ArrayList<>(), gpa, "Doesn't matter");
+  }
+
+  @Test
+  public void javaClassShowsUpInToString() {
+    String className = "Java";
+    var classes = new ArrayList<String>();
+    classes.add(className);
+
+    //When:
+    Student student = new Student("??", classes, 3.8, "Doesn't matter");
+
+    //Then:
+    assertThat(student.toString(), containsString(className));
   }
 
 }

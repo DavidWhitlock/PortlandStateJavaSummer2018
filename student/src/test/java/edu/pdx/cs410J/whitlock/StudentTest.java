@@ -24,27 +24,26 @@ public class StudentTest
 
   @Test(expected = IllegalArgumentException.class)
   public void gpaMustBeLessThanOrEqualToFourPointZero() {
-    double gpa = 4.1;  // Given
-
-    createStudentWithGpa(gpa); // When
-
-    // Then we expect this exception to occur
+    createStudentWithGpa(4.1);
   }
 
   @Test
   public void aFourPointZeroGpaIsPossible() {
-    double gpa = 4.0;
-    createStudentWithGpa(gpa);
+    createStudentWithGpa(4.0);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void gpaMustBeGreaterThanZero() {
+    createStudentWithGpa(-1.0);
+  }
+
+  @Test
+  public void aZeroGpaIsPossible() {
+    createStudentWithGpa(0.0);
   }
 
   private void createStudentWithGpa(double gpa) {
     new Student("??", new ArrayList<>(), gpa, "Doesn't matter");
   }
-
-  /*
-   * Interesting test cases for GPA:
-   *   GPA must be less than or equal to 4.0
-   *   GPA cannot be negative
-   */
 
 }

@@ -28,6 +28,10 @@ public class Student extends Human {
     if (gpa > 4.0) {
       throw new IllegalArgumentException("GPA cannot be greater than 4.0");
     }
+
+    if (gpa < 0.0) {
+      throw new IllegalArgumentException("GPA cannot be less than 0.0");
+    }
   }
 
   /**                                                                               

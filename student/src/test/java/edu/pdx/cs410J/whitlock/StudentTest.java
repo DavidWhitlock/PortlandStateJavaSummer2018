@@ -22,4 +22,29 @@ public class StudentTest
     assertThat(pat.getName(), equalTo(name));
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void gpaMustBeLessThanOrEqualToFourPointZero() {
+    double gpa = 4.1;  // Given
+
+    createStudentWithGpa(gpa); // When
+
+    // Then we expect this exception to occur
+  }
+
+  @Test
+  public void aFourPointZeroGpaIsPossible() {
+    double gpa = 4.0;
+    createStudentWithGpa(gpa);
+  }
+
+  private void createStudentWithGpa(double gpa) {
+    new Student("??", new ArrayList<>(), gpa, "Doesn't matter");
+  }
+
+  /*
+   * Interesting test cases for GPA:
+   *   GPA must be less than or equal to 4.0
+   *   GPA cannot be negative
+   */
+
 }

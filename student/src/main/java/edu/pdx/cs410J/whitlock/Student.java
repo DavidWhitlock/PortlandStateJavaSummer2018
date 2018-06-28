@@ -24,6 +24,10 @@ public class Student extends Human {
    */                                                                               
   public Student(String name, ArrayList<String> classes, double gpa, String gender) {
     super(name);
+
+    if (gpa > 4.0) {
+      throw new IllegalArgumentException("GPA cannot be greater than 4.0");
+    }
   }
 
   /**                                                                               

@@ -10,7 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class PhoneCallTest {
 
-  @Test(expected = UnsupportedOperationException.class)
+  @Test
   public void getStartTimeStringNeedsToBeImplemented() {
     PhoneCall call = new PhoneCall();
     call.getStartTimeString();

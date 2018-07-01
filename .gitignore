@@ -23,7 +23,7 @@
 hs_err_pid*
 
 # IntelliJ files
-*/.idea
+.idea
 dependency-reduced-pom.xml
 *.iml
 

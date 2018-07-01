@@ -3,6 +3,7 @@ package edu.pdx.cs410J.whitlock;
 import com.google.common.annotations.VisibleForTesting;
 import edu.pdx.cs410J.lang.Human;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**                                                                                 
@@ -99,7 +100,55 @@ public class Student extends Human {
    * standard out by invoking its <code>toString</code> method.
    */
   public static void main(String[] args) {
-    System.err.println("Missing command line arguments");
+    String name = null;
+    String gender = null;
+    String gpa = null;
+    List<String> classes = new ArrayList<>();
+
+    for (String arg : args) {
+      if (name == null) {
+        name = arg;
+
+      } else if (gender == null) {
+        gender = arg;
+
+      } else if (gpa == null) {
+        gpa = arg;
+
+      } else {
+        classes.add(arg);
+      }
+    }
+
+    if (name == null) {
+      printErrorMessageAndExit("Missing command line arguments");
+      return;
+
+    } else if (gender == null) {
+      printErrorMessageAndExit("Missing gender");
+      return;
+
+    } else if (gpa == null) {
+      printErrorMessageAndExit("Missing GPA");
+      return;
+    }
+
+    double gpaValue;
+    try {
+      gpaValue = Double.parseDouble(gpa);
+
+    } catch (NumberFormatException ex) {
+      printErrorMessageAndExit("Invalid GPA: " + gpa);
+      gpaValue = Double.NaN;
+    }
+
+    Student student = new Student(name, classes, gpaValue, gender);
+    System.out.println(student);
+    System.exit(0);
+  }
+
+  private static void printErrorMessageAndExit(String message) {
+    System.err.println(message);
     System.exit(1);
   }
 

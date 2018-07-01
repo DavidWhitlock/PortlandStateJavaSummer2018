@@ -1,5 +1,6 @@
 package edu.pdx.cs410J.whitlock;
 
+import com.google.common.annotations.VisibleForTesting;
 import edu.pdx.cs410J.lang.Human;
 
 import java.util.List;
@@ -10,7 +11,8 @@ import java.util.List;
 public class Student extends Human {
 
   private final List<String> classes;
-  private double gpa;
+  private final double gpa;
+  private final String gender;
 
   /**
    * Creates a new <code>Student</code>                                             
@@ -31,6 +33,7 @@ public class Student extends Human {
     validateGPA(gpa);
     this.gpa = gpa;
 
+    this.gender = gender;
     this.classes = classes;
   }
 
@@ -49,7 +52,7 @@ public class Student extends Human {
    */
   @Override
   public String says() {                                                            
-    throw new UnsupportedOperationException("Not implemented yet");
+    return "This class is too much work";
   }
                                                                                     
   /**                                                                               
@@ -84,7 +87,8 @@ public class Student extends Human {
       }
     }
 
-    sb.append(".");
+    sb.append(".  ");
+    sb.append(getGenderPronoun()).append(" says \"").append(says()).append("\".");
 
     return sb.toString();
   }
@@ -97,5 +101,17 @@ public class Student extends Human {
   public static void main(String[] args) {
     System.err.println("Missing command line arguments");
     System.exit(1);
+  }
+
+  @VisibleForTesting
+  String getGenderPronoun() {
+    switch (this.gender) {
+      case "male":
+        return "He";
+      case "female":
+        return "She";
+      default:
+        return "They";
+    }
   }
 }

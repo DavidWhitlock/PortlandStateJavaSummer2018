@@ -1,6 +1,5 @@
 package edu.pdx.cs410J.whitlock;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -105,13 +104,35 @@ public class StudentTest
     assertThat(student.toString(), containsString("and is taking 0 classes."));
   }
 
-  @Ignore
+  @Test
+  public void malePronounIsHe() {
+    String gender = "male";
+    Student student = new Student("Name", Collections.emptyList(), 2.34, gender);
+    assertThat(student.getGenderPronoun(), equalTo("He"));
+    assertThat(student.toString(), containsString("He says "));
+  }
+
+  @Test
+  public void femalePronounIsShe() {
+    String gender = "female";
+    Student student = new Student("Name", Collections.emptyList(), 2.34, gender);
+    assertThat(student.getGenderPronoun(), equalTo("She"));
+    assertThat(student.toString(), containsString("She says "));
+  }
+
+  @Test
+  public void allStudentsSayThisClassIsTooMuchWork() {
+    Student student = new Student("Name", Collections.emptyList(), 2.34, "female");
+    assertThat(student.says(), equalTo("This class is too much work"));
+    assertThat(student.toString(), containsString("says \"This class is too much work\"."));
+  }
+
   @Test
   public void exampleInputFromAssignmentGeneratesExpectedToStringValue() {
     List<String> classes = List.of("Algorithms", "Operating Systems", "Java");
     Student dave = new Student("Dave", classes, 3.64, "male");
 
-    assertThat(dave.toString(), equalTo("Dave has a GPA of 3.64 and is taking 3 classes: Algorithms, Operating Systems, and Java. He says \"This class is too much work\"."));
+    assertThat(dave.toString(), equalTo("Dave has a GPA of 3.64 and is taking 3 classes: Algorithms, Operating Systems, and Java.  He says \"This class is too much work\"."));
   }
 
 }

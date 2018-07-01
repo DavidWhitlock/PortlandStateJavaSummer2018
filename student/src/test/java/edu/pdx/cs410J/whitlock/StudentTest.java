@@ -77,6 +77,34 @@ public class StudentTest
     assertThat(student.toString(), containsString("has a GPA of " + gpa));
   }
 
+  @Test
+  public void toStringContainsOneClass() {
+    List<String> classes = List.of("Java");
+    Student student = new Student("Name", classes, 2.34, "Doesn't matter");
+    assertThat(student.toString(), containsString("and is taking 1 class: Java."));
+  }
+
+  @Test
+  public void toStringContainsTwoClasses() {
+    List<String> classes = List.of("Java", "Compilers");
+    Student student = new Student("Name", classes, 2.34, "Doesn't matter");
+    assertThat(student.toString(), containsString("and is taking 2 classes: Java and Compilers."));
+  }
+
+  @Test
+  public void toStringContainsThreeClasses() {
+    List<String> classes = List.of("Java", "Compilers", "Operating Systems");
+    Student student = new Student("Name", classes, 2.34, "Doesn't matter");
+    assertThat(student.toString(), containsString("and is taking 3 classes: Java, Compilers, and Operating Systems."));
+  }
+
+  @Test
+  public void toStringContainsZeroClasses() {
+    List<String> classes = List.of();
+    Student student = new Student("Name", classes, 2.34, "Doesn't matter");
+    assertThat(student.toString(), containsString("and is taking 0 classes."));
+  }
+
   @Ignore
   @Test
   public void exampleInputFromAssignmentGeneratesExpectedToStringValue() {

@@ -57,7 +57,36 @@ public class Student extends Human {
    * <code>Student</code>.                                                          
    */                                                                               
   public String toString() {
-    return this.name + " has a GPA of " + this.gpa + " " + this.classes.toString();
+    StringBuilder sb = new StringBuilder();
+    sb.append(this.name);
+    sb.append(" has a GPA of ").append(this.gpa);
+
+    int numberOfClasses = this.classes.size();
+    sb.append(" and is taking ").append(numberOfClasses)
+      .append(" class").append(numberOfClasses == 1 ? "" : "es");
+
+    if (numberOfClasses > 0) {
+      sb.append(": ");
+
+      for (int i = 0; i < numberOfClasses; i++) {
+        sb.append(this.classes.get(i));
+
+        if (i < numberOfClasses - 1) {
+          if (numberOfClasses > 2) {
+            sb.append(",");
+          }
+          sb.append(" ");
+        }
+
+        if (i == numberOfClasses - 2) {
+          sb.append("and ");
+        }
+      }
+    }
+
+    sb.append(".");
+
+    return sb.toString();
   }
 
   /**

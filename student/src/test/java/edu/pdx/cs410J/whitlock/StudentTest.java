@@ -1,8 +1,11 @@
 package edu.pdx.cs410J.whitlock;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -58,6 +61,29 @@ public class StudentTest
 
     //Then:
     assertThat(student.toString(), containsString(className));
+  }
+
+  @Test
+  public void toStringContainsStudentName() {
+    String name = "Test Name";
+    Student student = new Student(name, Collections.emptyList(), 1.23, "Doesn't matter");
+    assertThat(student.toString(), containsString(name));
+  }
+
+  @Test
+  public void toStringContainsGpa() {
+    double gpa = 2.34;
+    Student student = new Student("Name", Collections.emptyList(), gpa, "Doesn't matter");
+    assertThat(student.toString(), containsString("has a GPA of " + gpa));
+  }
+
+  @Ignore
+  @Test
+  public void exampleInputFromAssignmentGeneratesExpectedToStringValue() {
+    List<String> classes = List.of("Algorithms", "Operating Systems", "Java");
+    Student dave = new Student("Dave", classes, 3.64, "male");
+
+    assertThat(dave.toString(), equalTo("Dave has a GPA of 3.64 and is taking 3 classes: Algorithms, Operating Systems, and Java. He says \"This class is too much work\"."));
   }
 
 }

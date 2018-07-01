@@ -2,7 +2,6 @@ package edu.pdx.cs410J.whitlock;
 
 import edu.pdx.cs410J.lang.Human;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**                                                                                 
@@ -11,6 +10,7 @@ import java.util.List;
 public class Student extends Human {
 
   private final List<String> classes;
+  private double gpa;
 
   /**
    * Creates a new <code>Student</code>                                             
@@ -25,10 +25,11 @@ public class Student extends Human {
    * @param gender                                                                  
    *        The student's gender ("male" or "female", case insensitive)             
    */                                                                               
-  public Student(String name, ArrayList<String> classes, double gpa, String gender) {
+  public Student(String name, List<String> classes, double gpa, String gender) {
     super(name);
 
     validateGPA(gpa);
+    this.gpa = gpa;
 
     this.classes = classes;
   }
@@ -56,7 +57,7 @@ public class Student extends Human {
    * <code>Student</code>.                                                          
    */                                                                               
   public String toString() {
-    return this.classes.toString();
+    return this.name + " has a GPA of " + this.gpa + " " + this.classes.toString();
   }
 
   /**

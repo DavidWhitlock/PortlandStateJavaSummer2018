@@ -65,7 +65,7 @@
     <site>
       <id>gh-pages</id>
       <name>GitHub Pages</name>
-      <url>git:ssh://git@github.com/DavidWhitlock/PortlandStateJavaSummer2018.git?gh-pages#</url>
+      <url>github:http://davidwhitlock.github.io/PortlandStateJavaSummer2018/</url>
     </site>
   </distributionManagement>
 </project>

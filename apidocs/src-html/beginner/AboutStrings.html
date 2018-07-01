@@ -1,0 +1,260 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style">
+</head>
+<body>
+<main role="main">
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span><a id="line.1">package beginner;</a>
+<span class="sourceLineNo">002</span><a id="line.2"></a>
+<span class="sourceLineNo">003</span><a id="line.3">import com.sandwich.koan.Koan;</a>
+<span class="sourceLineNo">004</span><a id="line.4"></a>
+<span class="sourceLineNo">005</span><a id="line.5">import java.text.MessageFormat;</a>
+<span class="sourceLineNo">006</span><a id="line.6"></a>
+<span class="sourceLineNo">007</span><a id="line.7">import static com.sandwich.koan.constant.KoanConstants.__;</a>
+<span class="sourceLineNo">008</span><a id="line.8">import static com.sandwich.util.Assert.assertEquals;</a>
+<span class="sourceLineNo">009</span><a id="line.9">import static com.sandwich.util.Assert.fail;</a>
+<span class="sourceLineNo">010</span><a id="line.10"></a>
+<span class="sourceLineNo">011</span><a id="line.11">public class AboutStrings {</a>
+<span class="sourceLineNo">012</span><a id="line.12"></a>
+<span class="sourceLineNo">013</span><a id="line.13">    @Koan</a>
+<span class="sourceLineNo">014</span><a id="line.14">    public void implicitStrings() {</a>
+<span class="sourceLineNo">015</span><a id="line.15">        assertEquals("just a plain ole string".getClass(), __);</a>
+<span class="sourceLineNo">016</span><a id="line.16">    }</a>
+<span class="sourceLineNo">017</span><a id="line.17"></a>
+<span class="sourceLineNo">018</span><a id="line.18">    @Koan</a>
+<span class="sourceLineNo">019</span><a id="line.19">    public void newString() {</a>
+<span class="sourceLineNo">020</span><a id="line.20">        // very rarely if ever should Strings be created via new String() in</a>
+<span class="sourceLineNo">021</span><a id="line.21">        // practice - generally it is redundant, and done repetitively can be slow</a>
+<span class="sourceLineNo">022</span><a id="line.22">        String string = new String();</a>
+<span class="sourceLineNo">023</span><a id="line.23">        String empty = "";</a>
+<span class="sourceLineNo">024</span><a id="line.24">        assertEquals(string.equals(empty), __);</a>
+<span class="sourceLineNo">025</span><a id="line.25">    }</a>
+<span class="sourceLineNo">026</span><a id="line.26"></a>
+<span class="sourceLineNo">027</span><a id="line.27">    @Koan</a>
+<span class="sourceLineNo">028</span><a id="line.28">    public void newStringIsRedundant() {</a>
+<span class="sourceLineNo">029</span><a id="line.29">        String stringInstance = "zero";</a>
+<span class="sourceLineNo">030</span><a id="line.30">        String stringReference = new String(stringInstance);</a>
+<span class="sourceLineNo">031</span><a id="line.31">        assertEquals(stringInstance.equals(stringReference), __);</a>
+<span class="sourceLineNo">032</span><a id="line.32">    }</a>
+<span class="sourceLineNo">033</span><a id="line.33"></a>
+<span class="sourceLineNo">034</span><a id="line.34">    @Koan</a>
+<span class="sourceLineNo">035</span><a id="line.35">    public void newStringIsNotIdentical() {</a>
+<span class="sourceLineNo">036</span><a id="line.36">        String stringInstance = "zero";</a>
+<span class="sourceLineNo">037</span><a id="line.37">        String stringReference = new String(stringInstance);</a>
+<span class="sourceLineNo">038</span><a id="line.38">        assertEquals(stringInstance == stringReference, __);</a>
+<span class="sourceLineNo">039</span><a id="line.39">    }</a>
+<span class="sourceLineNo">040</span><a id="line.40"></a>
+<span class="sourceLineNo">041</span><a id="line.41">    @Koan</a>
+<span class="sourceLineNo">042</span><a id="line.42">    public void stringIsEmpty() {</a>
+<span class="sourceLineNo">043</span><a id="line.43">        assertEquals("".isEmpty(), __);</a>
+<span class="sourceLineNo">044</span><a id="line.44">        assertEquals("one".isEmpty(), __);</a>
+<span class="sourceLineNo">045</span><a id="line.45">        assertEquals(new String().isEmpty(), __);</a>
+<span class="sourceLineNo">046</span><a id="line.46">        assertEquals(new String("").isEmpty(), __);</a>
+<span class="sourceLineNo">047</span><a id="line.47">        assertEquals(new String("one").isEmpty(), __);</a>
+<span class="sourceLineNo">048</span><a id="line.48">    }</a>
+<span class="sourceLineNo">049</span><a id="line.49"></a>
+<span class="sourceLineNo">050</span><a id="line.50">    @Koan</a>
+<span class="sourceLineNo">051</span><a id="line.51">    public void stringLength() {</a>
+<span class="sourceLineNo">052</span><a id="line.52">        assertEquals("".length(), __);</a>
+<span class="sourceLineNo">053</span><a id="line.53">        assertEquals("one".length(), __);</a>
+<span class="sourceLineNo">054</span><a id="line.54">        assertEquals("the number is one".length(), __);</a>
+<span class="sourceLineNo">055</span><a id="line.55">    }</a>
+<span class="sourceLineNo">056</span><a id="line.56"></a>
+<span class="sourceLineNo">057</span><a id="line.57">    @Koan</a>
+<span class="sourceLineNo">058</span><a id="line.58">    public void stringTrim() {</a>
+<span class="sourceLineNo">059</span><a id="line.59">        assertEquals("".trim(), __);</a>
+<span class="sourceLineNo">060</span><a id="line.60">        assertEquals("one".trim(), "one");</a>
+<span class="sourceLineNo">061</span><a id="line.61">        assertEquals(" one more time".trim(), __);</a>
+<span class="sourceLineNo">062</span><a id="line.62">        assertEquals(" one more time         ".trim(), __);</a>
+<span class="sourceLineNo">063</span><a id="line.63">        assertEquals(" and again\t".trim(), __);</a>
+<span class="sourceLineNo">064</span><a id="line.64">        assertEquals("\t\t\twhat about now?\t".trim(), __);</a>
+<span class="sourceLineNo">065</span><a id="line.65">    }</a>
+<span class="sourceLineNo">066</span><a id="line.66"></a>
+<span class="sourceLineNo">067</span><a id="line.67">    @Koan</a>
+<span class="sourceLineNo">068</span><a id="line.68">    public void stringConcatenation() {</a>
+<span class="sourceLineNo">069</span><a id="line.69">        String one = "one";</a>
+<span class="sourceLineNo">070</span><a id="line.70">        String space = " ";</a>
+<span class="sourceLineNo">071</span><a id="line.71">        String two = "two";</a>
+<span class="sourceLineNo">072</span><a id="line.72">        assertEquals(one + space + two, __);</a>
+<span class="sourceLineNo">073</span><a id="line.73">        assertEquals(space + one + two, __);</a>
+<span class="sourceLineNo">074</span><a id="line.74">        assertEquals(two + space + one, __);</a>
+<span class="sourceLineNo">075</span><a id="line.75">    }</a>
+<span class="sourceLineNo">076</span><a id="line.76"></a>
+<span class="sourceLineNo">077</span><a id="line.77">    @Koan</a>
+<span class="sourceLineNo">078</span><a id="line.78">    public void stringUpperCase() {</a>
+<span class="sourceLineNo">079</span><a id="line.79">        String str = "I am a number one!";</a>
+<span class="sourceLineNo">080</span><a id="line.80">        assertEquals(str.toUpperCase(), __);</a>
+<span class="sourceLineNo">081</span><a id="line.81">    }</a>
+<span class="sourceLineNo">082</span><a id="line.82"></a>
+<span class="sourceLineNo">083</span><a id="line.83">    @Koan</a>
+<span class="sourceLineNo">084</span><a id="line.84">    public void stringLowerCase() {</a>
+<span class="sourceLineNo">085</span><a id="line.85">        String str = "I AM a number ONE!";</a>
+<span class="sourceLineNo">086</span><a id="line.86">        assertEquals(str.toLowerCase(), __);</a>
+<span class="sourceLineNo">087</span><a id="line.87">    }</a>
+<span class="sourceLineNo">088</span><a id="line.88"></a>
+<span class="sourceLineNo">089</span><a id="line.89">    @Koan</a>
+<span class="sourceLineNo">090</span><a id="line.90">    public void stringCompare() {</a>
+<span class="sourceLineNo">091</span><a id="line.91">        String str = "I AM a number ONE!";</a>
+<span class="sourceLineNo">092</span><a id="line.92">        assertEquals(str.compareTo("I AM a number ONE!") == 0, __);</a>
+<span class="sourceLineNo">093</span><a id="line.93">        assertEquals(str.compareTo("I am a number one!") == 0, __);</a>
+<span class="sourceLineNo">094</span><a id="line.94">        assertEquals(str.compareTo("I AM A NUMBER ONE!") == 0, __);</a>
+<span class="sourceLineNo">095</span><a id="line.95">    }</a>
+<span class="sourceLineNo">096</span><a id="line.96"></a>
+<span class="sourceLineNo">097</span><a id="line.97">    @Koan</a>
+<span class="sourceLineNo">098</span><a id="line.98">    public void stringCompareIgnoreCase() {</a>
+<span class="sourceLineNo">099</span><a id="line.99">        String str = "I AM a number ONE!";</a>
+<span class="sourceLineNo">100</span><a id="line.100">        assertEquals(str.compareToIgnoreCase("I AM a number ONE!") == 0, __);</a>
+<span class="sourceLineNo">101</span><a id="line.101">        assertEquals(str.compareToIgnoreCase("I am a number one!") == 0, __);</a>
+<span class="sourceLineNo">102</span><a id="line.102">        assertEquals(str.compareToIgnoreCase("I AM A NUMBER ONE!") == 0, __);</a>
+<span class="sourceLineNo">103</span><a id="line.103">    }</a>
+<span class="sourceLineNo">104</span><a id="line.104"></a>
+<span class="sourceLineNo">105</span><a id="line.105">    @Koan</a>
+<span class="sourceLineNo">106</span><a id="line.106">    public void stringStartsWith() {</a>
+<span class="sourceLineNo">107</span><a id="line.107">        assertEquals("".startsWith("one"), __);</a>
+<span class="sourceLineNo">108</span><a id="line.108">        assertEquals("one".startsWith("one"), __);</a>
+<span class="sourceLineNo">109</span><a id="line.109">        assertEquals("one is the number".startsWith("one"), __);</a>
+<span class="sourceLineNo">110</span><a id="line.110">        assertEquals("ONE is the number".startsWith("one"), __);</a>
+<span class="sourceLineNo">111</span><a id="line.111">    }</a>
+<span class="sourceLineNo">112</span><a id="line.112"></a>
+<span class="sourceLineNo">113</span><a id="line.113">    @Koan</a>
+<span class="sourceLineNo">114</span><a id="line.114">    public void stringEndsWith() {</a>
+<span class="sourceLineNo">115</span><a id="line.115">        assertEquals("".endsWith("one"), __);</a>
+<span class="sourceLineNo">116</span><a id="line.116">        assertEquals("one".endsWith("one"), __);</a>
+<span class="sourceLineNo">117</span><a id="line.117">        assertEquals("the number is one".endsWith("one"), __);</a>
+<span class="sourceLineNo">118</span><a id="line.118">        assertEquals("the number is two".endsWith("one"), __);</a>
+<span class="sourceLineNo">119</span><a id="line.119">        assertEquals("the number is One".endsWith("one"), __);</a>
+<span class="sourceLineNo">120</span><a id="line.120">    }</a>
+<span class="sourceLineNo">121</span><a id="line.121"></a>
+<span class="sourceLineNo">122</span><a id="line.122">    @Koan</a>
+<span class="sourceLineNo">123</span><a id="line.123">    public void stringSubstring() {</a>
+<span class="sourceLineNo">124</span><a id="line.124">        String str = "I AM a number ONE!";</a>
+<span class="sourceLineNo">125</span><a id="line.125">        assertEquals(str.substring(0), __);</a>
+<span class="sourceLineNo">126</span><a id="line.126">        assertEquals(str.substring(1), __);</a>
+<span class="sourceLineNo">127</span><a id="line.127">        assertEquals(str.substring(5), __);</a>
+<span class="sourceLineNo">128</span><a id="line.128">        assertEquals(str.substring(14, 17), __);</a>
+<span class="sourceLineNo">129</span><a id="line.129">        assertEquals(str.substring(7, str.length()), __);</a>
+<span class="sourceLineNo">130</span><a id="line.130">    }</a>
+<span class="sourceLineNo">131</span><a id="line.131"></a>
+<span class="sourceLineNo">132</span><a id="line.132">    @Koan</a>
+<span class="sourceLineNo">133</span><a id="line.133">    public void stringContains() {</a>
+<span class="sourceLineNo">134</span><a id="line.134">        String str = "I AM a number ONE!";</a>
+<span class="sourceLineNo">135</span><a id="line.135">        assertEquals(str.contains("one"), __);</a>
+<span class="sourceLineNo">136</span><a id="line.136">        assertEquals(str.contains("ONE"), __);</a>
+<span class="sourceLineNo">137</span><a id="line.137">    }</a>
+<span class="sourceLineNo">138</span><a id="line.138"></a>
+<span class="sourceLineNo">139</span><a id="line.139">    @Koan</a>
+<span class="sourceLineNo">140</span><a id="line.140">    public void stringReplace() {</a>
+<span class="sourceLineNo">141</span><a id="line.141">        String str = "I am a number ONE!";</a>
+<span class="sourceLineNo">142</span><a id="line.142">        assertEquals(str.replace("ONE", "TWO"), __);</a>
+<span class="sourceLineNo">143</span><a id="line.143">        assertEquals(str.replace("I am", "She is"),  __);</a>
+<span class="sourceLineNo">144</span><a id="line.144">    }</a>
+<span class="sourceLineNo">145</span><a id="line.145"></a>
+<span class="sourceLineNo">146</span><a id="line.146">    @Koan</a>
+<span class="sourceLineNo">147</span><a id="line.147">    public void stringBuilderCanActAsAMutableString() {</a>
+<span class="sourceLineNo">148</span><a id="line.148">        assertEquals(new StringBuilder("one").append(" ").append("two").toString(), __);</a>
+<span class="sourceLineNo">149</span><a id="line.149">    }</a>
+<span class="sourceLineNo">150</span><a id="line.150"></a>
+<span class="sourceLineNo">151</span><a id="line.151">    @Koan</a>
+<span class="sourceLineNo">152</span><a id="line.152">    public void readableStringFormattingWithStringFormat() {</a>
+<span class="sourceLineNo">153</span><a id="line.153">        assertEquals(String.format("%s %s %s", "a", "b", "a"), __);</a>
+<span class="sourceLineNo">154</span><a id="line.154">    }</a>
+<span class="sourceLineNo">155</span><a id="line.155"></a>
+<span class="sourceLineNo">156</span><a id="line.156">    @Koan</a>
+<span class="sourceLineNo">157</span><a id="line.157">    public void extraArgumentsToStringFormatGetIgnored() {</a>
+<span class="sourceLineNo">158</span><a id="line.158">        assertEquals(String.format("%s %s %s", "a", "b", "c", "d"), __);</a>
+<span class="sourceLineNo">159</span><a id="line.159">    }</a>
+<span class="sourceLineNo">160</span><a id="line.160"></a>
+<span class="sourceLineNo">161</span><a id="line.161">    @Koan</a>
+<span class="sourceLineNo">162</span><a id="line.162">    public void insufficientArgumentsToStringFormatCausesAnError() {</a>
+<span class="sourceLineNo">163</span><a id="line.163">        try {</a>
+<span class="sourceLineNo">164</span><a id="line.164">            String.format("%s %s %s", "a", "b");</a>
+<span class="sourceLineNo">165</span><a id="line.165">            fail("No Exception was thrown!");</a>
+<span class="sourceLineNo">166</span><a id="line.166">        } catch (Exception e) {</a>
+<span class="sourceLineNo">167</span><a id="line.167">            assertEquals(e.getClass(), __);</a>
+<span class="sourceLineNo">168</span><a id="line.168">            assertEquals(e.getMessage(), __);</a>
+<span class="sourceLineNo">169</span><a id="line.169">        }</a>
+<span class="sourceLineNo">170</span><a id="line.170">    }</a>
+<span class="sourceLineNo">171</span><a id="line.171"></a>
+<span class="sourceLineNo">172</span><a id="line.172">    @Koan</a>
+<span class="sourceLineNo">173</span><a id="line.173">    public void readableStringFormattingWithMessageFormat() {</a>
+<span class="sourceLineNo">174</span><a id="line.174">        assertEquals(MessageFormat.format("{0} {1} {0}", "a", "b"), __);</a>
+<span class="sourceLineNo">175</span><a id="line.175">    }</a>
+<span class="sourceLineNo">176</span><a id="line.176"></a>
+<span class="sourceLineNo">177</span><a id="line.177">    @Koan</a>
+<span class="sourceLineNo">178</span><a id="line.178">    public void extraArgumentsToMessageFormatGetIgnored() {</a>
+<span class="sourceLineNo">179</span><a id="line.179">        assertEquals(MessageFormat.format("{0} {1} {0}", "a", "b", "c"), __);</a>
+<span class="sourceLineNo">180</span><a id="line.180">    }</a>
+<span class="sourceLineNo">181</span><a id="line.181"></a>
+<span class="sourceLineNo">182</span><a id="line.182">    @Koan</a>
+<span class="sourceLineNo">183</span><a id="line.183">    public void insufficientArgumentsToMessageFormatDoesNotReplaceTheToken() {</a>
+<span class="sourceLineNo">184</span><a id="line.184">        assertEquals(MessageFormat.format("{0} {1} {0}", "a"), __);</a>
+<span class="sourceLineNo">185</span><a id="line.185">    }</a>
+<span class="sourceLineNo">186</span><a id="line.186">}</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</main>
+</body>
+</html>

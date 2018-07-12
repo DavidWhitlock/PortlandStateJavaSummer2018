@@ -19,6 +19,7 @@
     <module>phonebill</module>
     <module>student</module>
     <module>koans</module>
+    <module>TennisKata</module>
   </modules>
 
   <inceptionYear>2018</inceptionYear>

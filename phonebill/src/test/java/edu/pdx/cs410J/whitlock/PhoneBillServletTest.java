@@ -22,17 +22,17 @@ public class PhoneBillServletTest {
   public void initiallyServletContainsNoDictionaryEntries() throws ServletException, IOException {
     PhoneBillServlet servlet = new PhoneBillServlet();
 
-    HttpServletRequest request = mock(HttpServletRequest.class);
-    HttpServletResponse response = mock(HttpServletResponse.class);
-    PrintWriter pw = mock(PrintWriter.class);
+    HttpServletRequest mockRequest = mock(HttpServletRequest.class);
+    HttpServletResponse mockResponse = mock(HttpServletResponse.class);
+    PrintWriter mockPrintWriter = mock(PrintWriter.class);
 
-    when(response.getWriter()).thenReturn(pw);
+    when(mockResponse.getWriter()).thenReturn(mockPrintWriter);
 
-    servlet.doGet(request, response);
+    servlet.doGet(mockRequest, mockResponse);
 
     int expectedWords = 0;
-    verify(pw).println(Messages.formatWordCount(expectedWords));
-    verify(response).setStatus(HttpServletResponse.SC_OK);
+    verify(mockPrintWriter).println(Messages.formatWordCount(expectedWords));
+    verify(mockResponse).setStatus(HttpServletResponse.SC_OK);
   }
 
   @Test
@@ -42,18 +42,19 @@ public class PhoneBillServletTest {
     String word = "TEST WORD";
     String definition = "TEST DEFINITION";
 
-    HttpServletRequest request = mock(HttpServletRequest.class);
-    when(request.getParameter("word")).thenReturn(word);
-    when(request.getParameter("definition")).thenReturn(definition);
+    HttpServletRequest mockRequest = mock(HttpServletRequest.class);
+    when(mockRequest.getParameter("word")).thenReturn(word);
+    when(mockRequest.getParameter("definition")).thenReturn(definition);
 
-    HttpServletResponse response = mock(HttpServletResponse.class);
-    PrintWriter pw = mock(PrintWriter.class);
+    HttpServletResponse mockResponse = mock(HttpServletResponse.class);
+    PrintWriter mockPrintWriter = mock(PrintWriter.class);
 
-    when(response.getWriter()).thenReturn(pw);
+    when(mockResponse.getWriter()).thenReturn(mockPrintWriter);
 
-    servlet.doPost(request, response);
-    verify(pw).println(Messages.definedWordAs(word, definition));
-    verify(response).setStatus(HttpServletResponse.SC_OK);
+    servlet.doPost(mockRequest, mockResponse);
+
+    verify(mockPrintWriter).println(Messages.definedWordAs(word, definition));
+    verify(mockResponse).setStatus(HttpServletResponse.SC_OK);
 
     assertThat(servlet.getDefinition(word), equalTo(definition));
   }

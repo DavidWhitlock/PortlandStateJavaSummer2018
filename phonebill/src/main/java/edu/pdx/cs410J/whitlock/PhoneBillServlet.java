@@ -66,6 +66,8 @@ public class PhoneBillServlet extends HttpServlet
             return;
         }
 
+        System.out.println("Adding " + word + " : " + definition + " to the dictionary");
+
         this.dictionary.put(word, definition);
 
         PrintWriter pw = response.getWriter();
@@ -116,6 +118,8 @@ public class PhoneBillServlet extends HttpServlet
     {
         String definition = this.dictionary.get(word);
 
+        System.out.println("The definition of " + word + " is \"" + definition + "\"");
+
         PrintWriter pw = response.getWriter();
         pw.println(Messages.formatDictionaryEntry(word, definition));
 
@@ -134,6 +138,8 @@ public class PhoneBillServlet extends HttpServlet
     {
         PrintWriter pw = response.getWriter();
         Messages.formatDictionaryEntries(pw, dictionary);
+
+        System.out.println("Writing all dictionary entries");
 
         pw.flush();
 

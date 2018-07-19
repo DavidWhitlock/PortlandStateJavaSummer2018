@@ -20,6 +20,7 @@
     <module>student</module>
     <module>koans</module>
     <module>TennisKata</module>
+    <module>phonebill</module>
   </modules>
 
   <inceptionYear>2018</inceptionYear>

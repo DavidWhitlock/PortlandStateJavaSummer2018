@@ -16,7 +16,7 @@
   <url>http://davidwhitlock.github.io/PortlandStateJavaSummer2018</url>
 
   <modules>
-    <module>phonebill</module>
+    <module>phonebill-cmdline</module>
     <module>student</module>
     <module>koans</module>
     <module>TennisKata</module>

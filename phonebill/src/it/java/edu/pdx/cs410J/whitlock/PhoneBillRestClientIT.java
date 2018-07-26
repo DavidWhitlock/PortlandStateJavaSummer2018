@@ -2,12 +2,14 @@ package edu.pdx.cs410J.whitlock;
 
 import edu.pdx.cs410J.web.HttpRequestHelper;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.util.Map;
+import java.text.DateFormat;
+import java.util.Date;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -27,29 +29,40 @@ public class PhoneBillRestClientIT {
   }
 
   @Test
-  public void test0RemoveAllDictionaryEntries() throws IOException {
+  public void test0RemoveAllPhoneBills() throws IOException {
     PhoneBillRestClient client = newPhoneBillRestClient();
-    client.removeAllDictionaryEntries();
+    client.removeAllPhoneBills();
+  }
+
+  @Test(expected = NoSuchPhoneBillException.class)
+  public void test1EmptyServerThrowsNoSuchPhoneBillException() throws IOException {
+    PhoneBillRestClient client = newPhoneBillRestClient();
+    client.getPrettyPhoneBill("No such customer");
   }
 
   @Test
-  public void test1EmptyServerContainsNoDictionaryEntries() throws IOException {
+  public void test2AddOnePhoneCall() throws IOException {
     PhoneBillRestClient client = newPhoneBillRestClient();
-    Map<String, String> dictionary = client.getAllDictionaryEntries();
-    assertThat(dictionary.size(), equalTo(0));
+    String callerNumber = "123-456-7890";
+    String calleeNumber = "234-567-8901";
+    Date startTime = new Date(System.currentTimeMillis());
+    Date endTime = new Date(System.currentTimeMillis() + 100000);
+    PhoneCall phoneCall = new PhoneCall(callerNumber, calleeNumber, startTime, endTime);
+
+    String customer = "Customer";
+    client.addPhoneCall(customer, phoneCall);
+
+    String pretty = client.getPrettyPhoneBill(customer);
+    assertThat(pretty, containsString(customer));
+    assertThat(pretty, containsString(callerNumber));
+    assertThat(pretty, containsString(calleeNumber));
+
+    DateFormat format = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+    assertThat(pretty, containsString(format.format(startTime)));
+    assertThat(pretty, containsString(format.format(endTime)));
   }
 
-  @Test
-  public void test2DefineOneWord() throws IOException {
-    PhoneBillRestClient client = newPhoneBillRestClient();
-    String testWord = "TEST WORD";
-    String testDefinition = "TEST DEFINITION";
-    client.addDictionaryEntry(testWord, testDefinition);
-
-    String definition = client.getDefinition(testWord);
-    assertThat(definition, equalTo(testDefinition));
-  }
-
+  @Ignore
   @Test
   public void test4MissingRequiredParameterReturnsPreconditionFailed() throws IOException {
     PhoneBillRestClient client = newPhoneBillRestClient();

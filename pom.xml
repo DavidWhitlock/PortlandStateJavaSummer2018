@@ -21,6 +21,7 @@
     <module>koans</module>
     <module>TennisKata</module>
     <module>phonebill</module>
+    <module>phonebill-gwt</module>
   </modules>
 
   <inceptionYear>2018</inceptionYear>

@@ -52,8 +52,8 @@ public class PhoneBillServlet extends HttpServlet
 
         } else {
             PrintWriter writer = response.getWriter();
-            writer.println(bill.getCustomer());
-            bill.getPhoneCalls().forEach((call) -> writer.println(call.toString()));
+            PrettyPrinter pretty = new PrettyPrinter(writer);
+            pretty.dump(bill);
             response.setStatus(HttpServletResponse.SC_OK);
         }
     }

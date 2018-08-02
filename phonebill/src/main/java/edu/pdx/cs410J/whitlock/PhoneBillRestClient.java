@@ -66,8 +66,8 @@ public class PhoneBillRestClient extends HttpRequestHelper
     }
 
     @VisibleForTesting
-    Response postToMyURL(String... dictionaryEntries) throws IOException {
-      return post(this.url, dictionaryEntries);
+    Response postToMyURL(String... phoneCallInformation) throws IOException {
+      return post(this.url, phoneCallInformation);
     }
 
     public void removeAllPhoneBills() throws IOException {

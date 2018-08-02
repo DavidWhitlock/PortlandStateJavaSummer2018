@@ -2,10 +2,8 @@ package edu.pdx.cs410J.kata;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
 
 /**
  * Unit tests for the Student class.  In addition to the JUnit annotations,
@@ -15,11 +13,47 @@ import static org.hamcrest.core.IsEqual.equalTo;
 public class PacManTest
 {
 
+  @Test(expected = IllegalArgumentException.class)
+  public void boardWithNoPacManThrowsIllegalArgumentException() {
+    new GameBoard("");
+  }
+
   @Test
-  public void studentNamedPatIsNamedPat() {
-    String name = "Pat";
-    var pat = new PacMan(name, new ArrayList<>(), 0.0, "Doesn't matter");
-    assertThat(pat.getName(), equalTo(name));
+  public void pacManIsFacingWest() {
+    GameBoard board = new GameBoard(">");
+    assertThat(board.getPacManDirection(), equalTo(PacManDirection.WEST));
+  }
+
+  @Test
+  public void pacManIsFacingEast() {
+    GameBoard board = new GameBoard("<");
+    assertThat(board.getPacManDirection(), equalTo(PacManDirection.EAST));
+  }
+
+  @Test
+  public void pacManIsFacingNorth() {
+    GameBoard board = new GameBoard("V");
+    assertThat(board.getPacManDirection(), equalTo(PacManDirection.NORTH));
+  }
+
+  @Test
+  public void pacManIsFacingSouth() {
+    GameBoard board = new GameBoard("^");
+    assertThat(board.getPacManDirection(), equalTo(PacManDirection.SOUTH));
+  }
+
+  @Test
+  public void pacManFacingWestCanMoveIntoAnEmptyCell() {
+    GameBoard board = new GameBoard(" >");
+    board.tick();
+    assertThat(board.getRow(0), equalTo("> "));
+  }
+
+  @Test
+  public void pacManFacingEastCanMoveIntoAnEmptyCell() {
+    GameBoard board = new GameBoard("< ");
+    board.tick();
+    assertThat(board.getRow(0), equalTo(" <"));
   }
 
 }

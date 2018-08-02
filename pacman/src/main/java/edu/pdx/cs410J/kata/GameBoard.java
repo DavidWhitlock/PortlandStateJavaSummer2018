@@ -47,11 +47,14 @@ public class GameBoard {
   }
 
   private void initializeBoard(String board) {
-    int rows = 1;
-    int columns = board.length();
+    String[] lines = board.split("\n");
+    int rows = lines.length;
+    int columns = lines[0].length();
 
     this.board = new char[rows][columns];
-    this.board[0] = board.toCharArray();
+    for (int line = 0; line < lines.length; line++) {
+      this.board[line] = lines[line].toCharArray();
+    }
   }
 
   public void tick() {
@@ -68,24 +71,58 @@ public class GameBoard {
         return '<';
       case WEST:
         return '>';
+      case SOUTH:
+        return '^';
+      case NORTH:
+        return 'V';
       default:
-        throw new UnsupportedOperationException("Don't know how to handle" + this.direction);
+        throw new UnsupportedOperationException("Don't know how to handle " + this.direction);
     }
   }
 
   private int getNextColumn() {
+    int nextColumnOffset;
+
     if (this.direction == PacManDirection.WEST) {
-      return this.pacManColumn - 1;
+      nextColumnOffset = -1;
 
     } else if (this.direction == PacManDirection.EAST) {
-      return this.pacManColumn + 1;
+      nextColumnOffset = 1;
+
+    } else if (this.direction == PacManDirection.SOUTH) {
+      nextColumnOffset = 0;
+
+    } else if (this.direction == PacManDirection.NORTH) {
+      nextColumnOffset = 0;
 
     } else {
       throw new UnsupportedOperationException("Don't know how to handle " + this.direction + " yet");
     }
+
+    this.pacManColumn = this.pacManColumn + nextColumnOffset;
+    return this.pacManColumn;
   }
 
   private int getNextRow() {
+    int nextRowOffset;
+
+    if (this.direction == PacManDirection.SOUTH) {
+      nextRowOffset = 1;
+
+    } else if (this.direction == PacManDirection.NORTH) {
+      nextRowOffset = -1;
+
+    } else if (this.direction == PacManDirection.EAST) {
+      nextRowOffset = 0;
+
+    } else if (this.direction == PacManDirection.WEST) {
+      nextRowOffset = 0;
+
+    } else {
+      throw new UnsupportedOperationException("Don't know how to handle " + this.direction + " yet");
+    }
+
+    this.pacManRow = this.pacManRow + nextRowOffset;
     return this.pacManRow;
   }
 

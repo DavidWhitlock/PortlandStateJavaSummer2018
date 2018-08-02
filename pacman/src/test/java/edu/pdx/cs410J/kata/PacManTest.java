@@ -11,8 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * they also make use of the <a href="http://hamcrest.org/JavaHamcrest/">hamcrest</a>
  * matchers for more readable assertion statements.
  */
-public class PacManTest
-{
+public class PacManTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void boardWithNoPacManThrowsIllegalArgumentException() {
@@ -59,15 +58,23 @@ public class PacManTest
 
   @Test
   public void pacManFacingSouthCanMoveIntoAnEmptyCell() {
-    GameBoard board = new GameBoard("^\n ");
+    GameBoard board =
+      line("^").
+      line(" ").board();
     board.tick();
     assertThat(board.getRow(0), equalTo(" "));
     assertThat(board.getRow(1), equalTo("^"));
   }
 
+  private GameBoardBuilder line(String line) {
+    return new GameBoardBuilder(line);
+  }
+
   @Test
   public void pacManFacingNorthCanMoveIntoAnEmptyCell() {
-    GameBoard board = new GameBoard(" \nV");
+    GameBoard board =
+      line(" ").
+      line("V").board();
     board.tick();
     assertThat(board.getRow(0), equalTo("V"));
     assertThat(board.getRow(1), equalTo(" "));
@@ -81,4 +88,20 @@ public class PacManTest
     assertThat(board.getRow(0), equalTo(" >"));
   }
 
+  private class GameBoardBuilder {
+    private final StringBuilder sb = new StringBuilder();
+
+    GameBoardBuilder(String line) {
+      sb.append(line);
+    }
+
+    public GameBoardBuilder line(String line) {
+      sb.append("\n").append(line);
+      return this;
+    }
+
+    public GameBoard board() {
+      return new GameBoard(this.sb.toString());
+    }
+  }
 }

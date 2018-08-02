@@ -80,6 +80,40 @@ public class PacManTest {
     assertThat(board.getRow(1), equalTo(" "));
   }
 
+  @Test
+  public void wallPreventsPacManFromMovingEast() {
+    GameBoard board = new GameBoard("<|");
+    board.tick();
+    assertThat(board.getRow(0), equalTo("<|"));
+  }
+
+  @Test
+  public void wallPreventsPacManFromMovingWest() {
+    GameBoard board = new GameBoard("|>");
+    board.tick();
+    assertThat(board.getRow(0), equalTo("|>"));
+  }
+
+  @Test
+  public void wallPreventsPacManFromMovingNorth() {
+    GameBoard board =
+      line("-").
+      line("V").board();
+    board.tick();
+    assertThat(board.getRow(0), equalTo("-"));
+    assertThat(board.getRow(1), equalTo("V"));
+  }
+
+  @Test
+  public void wallPreventsPacManFromMovingSouth() {
+    GameBoard board =
+      line("^").
+      line("-").board();
+    board.tick();
+    assertThat(board.getRow(0), equalTo("^"));
+    assertThat(board.getRow(1), equalTo("-"));
+  }
+
   @Ignore
   @Test
   public void pacManFacingWestAtTheEdgeOfTheBoardWrapsAround() {

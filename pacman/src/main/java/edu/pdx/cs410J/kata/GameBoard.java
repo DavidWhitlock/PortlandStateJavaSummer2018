@@ -58,11 +58,23 @@ public class GameBoard {
   }
 
   public void tick() {
-    this.board[this.pacManRow][this.pacManColumn] = ' ';
 
     int nextRow = getNextRow();
     int nextColumn = getNextColumn();
+
+    if (cellContainsWall(nextRow, nextColumn)) {
+      return;
+    }
+
+    this.board[this.pacManRow][this.pacManColumn] = ' ';
+    this.pacManRow = nextRow;
+    this.pacManColumn = nextColumn;
     this.board[nextRow][nextColumn] = getPacManChar();
+  }
+
+  private boolean cellContainsWall(int row, int column) {
+    char cell = this.board[row][column];
+    return cell != ' ';
   }
 
   private char getPacManChar() {
@@ -99,8 +111,7 @@ public class GameBoard {
       throw new UnsupportedOperationException("Don't know how to handle " + this.direction + " yet");
     }
 
-    this.pacManColumn = this.pacManColumn + nextColumnOffset;
-    return this.pacManColumn;
+    return this.pacManColumn + nextColumnOffset;
   }
 
   private int getNextRow() {
@@ -122,15 +133,14 @@ public class GameBoard {
       throw new UnsupportedOperationException("Don't know how to handle " + this.direction + " yet");
     }
 
-    this.pacManRow = this.pacManRow + nextRowOffset;
-    return this.pacManRow;
+    return this.pacManRow + nextRowOffset;
   }
 
-  public String getRow(int row) {
+  String getRow(int row) {
     return new String(this.board[row]);
   }
 
-  public PacManDirection getPacManDirection() {
+  PacManDirection getPacManDirection() {
     return this.direction;
   }
 }

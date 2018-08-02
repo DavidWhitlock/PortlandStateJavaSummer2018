@@ -12,13 +12,13 @@ import static org.hamcrest.core.IsEqual.equalTo;
  * they also make use of the <a href="http://hamcrest.org/JavaHamcrest/">hamcrest</a>
  * matchers for more readable assertion statements.
  */
-public class StudentTest
+public class PacManTest
 {
 
   @Test
   public void studentNamedPatIsNamedPat() {
     String name = "Pat";
-    var pat = new Student(name, new ArrayList<>(), 0.0, "Doesn't matter");
+    var pat = new PacMan(name, new ArrayList<>(), 0.0, "Doesn't matter");
     assertThat(pat.getName(), equalTo(name));
   }
 

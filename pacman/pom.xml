@@ -36,7 +36,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>edu.pdx.cs410J.kata.Student</mainClass>
+              <mainClass>edu.pdx.cs410J.kata.PacMan</mainClass>
             </manifest>
           </archive>
         </configuration>

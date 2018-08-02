@@ -83,7 +83,7 @@ public class PhoneBillGwt implements EntryPoint {
   }
 
   private void addWidgets(VerticalPanel panel) {
-    showPhoneBillButton = new Button("Show Phone Bill");
+    showPhoneBillButton = new Button("Show Phone Bill to everyone!");
     showPhoneBillButton.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent clickEvent) {

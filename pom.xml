@@ -22,6 +22,7 @@
     <module>TennisKata</module>
     <module>phonebill</module>
     <module>phonebill-gwt</module>
+    <module>pacman</module>
   </modules>
 
   <inceptionYear>2018</inceptionYear>

@@ -1,6 +1,5 @@
 package edu.pdx.cs410J.kata;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -114,12 +113,38 @@ public class PacManTest {
     assertThat(board.getRow(1), equalTo("-"));
   }
 
-  @Ignore
   @Test
   public void pacManFacingWestAtTheEdgeOfTheBoardWrapsAround() {
     GameBoard board = new GameBoard("> ");
     board.tick();
     assertThat(board.getRow(0), equalTo(" >"));
+  }
+
+  @Test
+  public void pacManFacingEastAtTheEdgeOfTheBoardWrapsAround() {
+    GameBoard board = new GameBoard(" <");
+    board.tick();
+    assertThat(board.getRow(0), equalTo("< "));
+  }
+
+  @Test
+  public void pacManFacingNorthAtTheEdgeOfTheBoardWrapsAround() {
+    GameBoard board =
+      line("V").
+      line(" ").board();
+    board.tick();
+    assertThat(board.getRow(0), equalTo(" "));
+    assertThat(board.getRow(1), equalTo("V"));
+  }
+
+  @Test
+  public void pacManFacingSouthAtTheEdgeOfTheBoardWrapsAround() {
+    GameBoard board =
+      line(" ").
+      line("^").board();
+    board.tick();
+    assertThat(board.getRow(0), equalTo("^"));
+    assertThat(board.getRow(1), equalTo(" "));
   }
 
   private class GameBoardBuilder {

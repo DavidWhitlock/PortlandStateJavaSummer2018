@@ -111,7 +111,18 @@ public class GameBoard {
       throw new UnsupportedOperationException("Don't know how to handle " + this.direction + " yet");
     }
 
-    return this.pacManColumn + nextColumnOffset;
+    int nextColumn = this.pacManColumn + nextColumnOffset;
+    if (nextColumn < 0) {
+      nextColumn = getNumberOfColumns() - 1;
+
+    } else if (nextColumn >= getNumberOfColumns()) {
+      nextColumn = 0;
+    }
+    return nextColumn;
+  }
+
+  private int getNumberOfColumns() {
+    return this.board[0].length;
   }
 
   private int getNextRow() {
@@ -133,7 +144,18 @@ public class GameBoard {
       throw new UnsupportedOperationException("Don't know how to handle " + this.direction + " yet");
     }
 
-    return this.pacManRow + nextRowOffset;
+    int nextRow = this.pacManRow + nextRowOffset;
+    if (nextRow < 0) {
+      nextRow = getNumberOfRows() - 1;
+
+    } else if (nextRow >= getNumberOfRows()) {
+      nextRow = 0;
+    }
+    return nextRow;
+  }
+
+  private int getNumberOfRows() {
+    return this.board.length;
   }
 
   String getRow(int row) {

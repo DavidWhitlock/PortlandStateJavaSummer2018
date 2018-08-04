@@ -7,10 +7,22 @@ public class GameBoard {
   private int pacManRow;
   private PacManDirection direction;
   private int score = 0;
+  private int pelletCount = 0;
 
   public GameBoard(String board) {
     initializeBoard(board);
     locatePacMan();
+    countPellets();
+  }
+
+  private void countPellets() {
+    for (int row = 0; row < this.board.length; row++) {
+      for (int column = 0; column < this.board[row].length; column++) {
+        if (cellContainsPellet(row, column)) {
+          this.pelletCount++;
+        }
+      }
+    }
   }
 
   private void locatePacMan() {
@@ -67,13 +79,18 @@ public class GameBoard {
       return;
 
     } else if (cellContainsPellet(nextRow, nextColumn)) {
-      this.score += 10;
+      eatPellet();
     }
 
     this.board[this.pacManRow][this.pacManColumn] = ' ';
     this.pacManRow = nextRow;
     this.pacManColumn = nextColumn;
     this.board[nextRow][nextColumn] = getPacManChar();
+  }
+
+  private void eatPellet() {
+    this.score += 10;
+    this.pelletCount--;
   }
 
   private boolean cellContainsPellet(int row, int column) {
@@ -189,5 +206,9 @@ public class GameBoard {
   public void setPacManDirection(PacManDirection direction) {
     this.direction = direction;
     this.board[this.pacManRow][this.pacManColumn] = getPacManChar();
+  }
+
+  public int getPelletCount() {
+    return pelletCount;
   }
 }

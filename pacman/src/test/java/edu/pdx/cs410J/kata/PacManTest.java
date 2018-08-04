@@ -174,6 +174,18 @@ public class PacManTest {
   }
 
   @Test
+  public void whenPacManEatsAPelletPelletCountDecreasesByOne() {
+    GameBoard board = line("<..").board();
+    assertThat(board.getPelletCount(), equalTo(2));
+
+    board.tick();
+    assertThat(board.getPelletCount(), equalTo(1));
+
+    board.tick();
+    assertThat(board.getPelletCount(), equalTo(0));
+  }
+
+  @Test
   public void pacManTurnsNorth() {
     GameBoard board = line(">").board();
     board.setPacManDirection(PacManDirection.NORTH);

@@ -147,6 +147,32 @@ public class PacManTest {
     assertThat(board.getRow(1), equalTo(" "));
   }
 
+  @Test
+  public void initiallyScoreIsZero() {
+    GameBoard board = line(">").board();
+    assertThat(board.getScore(), equalTo(0));
+  }
+
+  @Test
+  public void pacManCanEatAPellet() {
+    GameBoard board = line("<..").board();
+    board.tick();
+    assertThat(board.getRow(0), equalTo(" <."));
+
+    board.tick();
+    assertThat(board.getRow(0), equalTo("  <"));
+  }
+
+  @Test
+  public void whenPacManEatsAPelletScoreIncreasesBy10() {
+    GameBoard board = line("<..").board();
+    board.tick();
+    assertThat(board.getScore(), equalTo(10));
+
+    board.tick();
+    assertThat(board.getScore(), equalTo(20));
+  }
+
   private class GameBoardBuilder {
     private final StringBuilder sb = new StringBuilder();
 

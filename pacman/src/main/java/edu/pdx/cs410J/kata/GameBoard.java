@@ -6,6 +6,7 @@ public class GameBoard {
   private int pacManColumn;
   private int pacManRow;
   private PacManDirection direction;
+  private int score = 0;
 
   public GameBoard(String board) {
     initializeBoard(board);
@@ -64,6 +65,9 @@ public class GameBoard {
 
     if (cellContainsWall(nextRow, nextColumn)) {
       return;
+
+    } else if (cellContainsPellet(nextRow, nextColumn)) {
+      this.score += 10;
     }
 
     this.board[this.pacManRow][this.pacManColumn] = ' ';
@@ -72,9 +76,21 @@ public class GameBoard {
     this.board[nextRow][nextColumn] = getPacManChar();
   }
 
+  private boolean cellContainsPellet(int row, int column) {
+    return getCell(row, column) == '.';
+  }
+
+  private char getCell(int row, int column) {
+    return this.board[row][column];
+  }
+
   private boolean cellContainsWall(int row, int column) {
-    char cell = this.board[row][column];
-    return cell != ' ';
+    if (cellContainsPellet(row, column)) {
+      return false;
+
+    } else {
+      return getCell(row, column) != ' ';
+    }
   }
 
   private char getPacManChar() {
@@ -164,5 +180,9 @@ public class GameBoard {
 
   PacManDirection getPacManDirection() {
     return this.direction;
+  }
+
+  public int getScore() {
+    return score;
   }
 }

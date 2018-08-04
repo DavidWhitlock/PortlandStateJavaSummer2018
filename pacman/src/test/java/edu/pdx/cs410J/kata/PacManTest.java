@@ -173,6 +173,20 @@ public class PacManTest {
     assertThat(board.getScore(), equalTo(20));
   }
 
+  @Test
+  public void pacManTurnsNorth() {
+    GameBoard board = line(">").board();
+    board.setPacManDirection(PacManDirection.NORTH);
+    assertThat(board.getRow(0), equalTo("V"));
+  }
+
+  @Test
+  public void pacManTurnsSouth() {
+    GameBoard board = line(">").board();
+    board.setPacManDirection(PacManDirection.SOUTH);
+    assertThat(board.getRow(0), equalTo("^"));
+  }
+
   private class GameBoardBuilder {
     private final StringBuilder sb = new StringBuilder();
 

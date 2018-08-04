@@ -185,4 +185,9 @@ public class GameBoard {
   public int getScore() {
     return score;
   }
+
+  public void setPacManDirection(PacManDirection direction) {
+    this.direction = direction;
+    this.board[this.pacManRow][this.pacManColumn] = getPacManChar();
+  }
 }

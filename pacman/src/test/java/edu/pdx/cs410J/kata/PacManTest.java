@@ -1,9 +1,14 @@
 package edu.pdx.cs410J.kata;
 
 import org.junit.Test;
+import org.mockito.InOrder;
+
+import java.util.function.Consumer;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
 
 /**
  * Unit tests for the Student class.  In addition to the JUnit annotations,
@@ -197,6 +202,24 @@ public class PacManTest {
     GameBoard board = line(">").board();
     board.setPacManDirection(PacManDirection.SOUTH);
     assertThat(board.getRow(0), equalTo("^"));
+  }
+
+  @Test
+  public void forEachRowReturnsExpectedRow() {
+    GameBoard board =
+      line(" ").
+      line("^").
+      line(".").
+      board();
+
+    Consumer<String> consumer = mock(Consumer.class);
+    board.forEachRow(consumer);
+
+    InOrder order = inOrder(consumer);
+
+    order.verify(consumer).accept(" ");
+    order.verify(consumer).accept("^");
+    order.verify(consumer).accept(".");
   }
 
   private class GameBoardBuilder {

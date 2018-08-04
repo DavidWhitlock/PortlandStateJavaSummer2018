@@ -1,5 +1,7 @@
 package edu.pdx.cs410J.kata;
 
+import java.util.function.Consumer;
+
 public class GameBoard {
   private char[][] board;
 
@@ -210,5 +212,11 @@ public class GameBoard {
 
   public int getPelletCount() {
     return pelletCount;
+  }
+
+  public void forEachRow(Consumer<String> consumer) {
+    for (char[] row : this.board) {
+      consumer.accept(new String(row));
+    }
   }
 }

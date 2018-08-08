@@ -72,7 +72,7 @@
             <configuration>
                 <runTarget>PacManGwt.html</runTarget>
                 <modules>
-                  <module>edu.pdx.cs410J.kata.PhoneBillGwt</module>
+                  <module>edu.pdx.cs410J.kata.PacManGwt</module>
                 </modules>
                 <extraJvmArgs>-Xmx512m</extraJvmArgs>
                 <style>DETAILED</style>

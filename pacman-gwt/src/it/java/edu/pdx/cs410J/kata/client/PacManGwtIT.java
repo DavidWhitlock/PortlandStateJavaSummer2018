@@ -17,7 +17,7 @@ import org.junit.Test;
 public class PacManGwtIT extends GWTTestCase {
   @Override
   public String getModuleName() {
-    return "edu.pdx.cs410J.kata.PhoneBillIntegrationTests";
+    return "edu.pdx.cs410J.kata.PacManIntegrationTests";
   }
 
   @Test

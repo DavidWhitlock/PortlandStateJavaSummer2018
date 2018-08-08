@@ -8,7 +8,7 @@
 
   -->
 
-  <inherits name='edu.pdx.cs410J.kata.PhoneBillGwt'/>
+  <inherits name='edu.pdx.cs410J.kata.PacManGwt'/>
 
   <source path="client">
     <include name="**/*.java"/>

@@ -13,7 +13,7 @@ import static junit.framework.TestCase.assertEquals;
 public class PacManServiceSyncProxyIT extends HttpRequestHelper {
 
   private final int httpPort = Integer.getInteger("http.port", 8080);
-  private String webAppUrl = "http://localhost:" + httpPort + "/phonebill";
+  private String webAppUrl = "http://localhost:" + httpPort + "/pacman";
 
   @Test
   public void gwtWebApplicationIsRunning() throws IOException {
@@ -23,7 +23,7 @@ public class PacManServiceSyncProxyIT extends HttpRequestHelper {
 
   @Test
   public void canInvokePhoneBillServiceWithGwtSyncProxy() {
-    String moduleName = "phonebill";
+    String moduleName = "pacman";
     SyncProxy.setBaseURL(this.webAppUrl + "/" + moduleName + "/");
 
     PacManService service = SyncProxy.createSync(PacManService.class);

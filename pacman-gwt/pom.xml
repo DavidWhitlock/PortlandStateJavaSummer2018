@@ -55,7 +55,7 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>phonebill</finalName>
+    <finalName>pacman</finalName>
 
     <!-- Output classes directly into the webapp, so that IDEs and "mvn process-classes" update them in DevMode -->
     <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
@@ -121,7 +121,7 @@
           <stopKey>stop-key</stopKey>
           <stopPort>9999</stopPort>
           <webApp>
-            <contextPath>/phonebill</contextPath>
+            <contextPath>/pacman</contextPath>
           </webApp>
         </configuration>
       </plugin>

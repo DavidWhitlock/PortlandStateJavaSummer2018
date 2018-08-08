@@ -23,6 +23,7 @@
     <module>phonebill</module>
     <module>phonebill-gwt</module>
     <module>pacman</module>
+    <module>pacman-gwt</module>
   </modules>
 
   <inceptionYear>2018</inceptionYear>

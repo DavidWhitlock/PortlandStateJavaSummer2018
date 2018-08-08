@@ -14,7 +14,7 @@ import org.junit.Test;
  * So, test methods names must begin with "test".
  * And since this test code is compiled into JavaScript, you can't use hamcrest matchers.  :(
  */
-public class PhoneBillGwtIT extends GWTTestCase {
+public class PacManGwtIT extends GWTTestCase {
   @Override
   public String getModuleName() {
     return "edu.pdx.cs410J.kata.PhoneBillIntegrationTests";
@@ -24,7 +24,7 @@ public class PhoneBillGwtIT extends GWTTestCase {
   public void testClickingShowPhoneBillButtonAlertsWithPhoneBillInformation() {
     final CapturingAlerter alerter = new CapturingAlerter();
 
-    final PhoneBillGwt ui = new PhoneBillGwt(alerter);
+    final PacManGwt ui = new PacManGwt(alerter);
     ui.onModuleLoad();
 
     // Wait for UI widgets to be created
@@ -53,7 +53,7 @@ public class PhoneBillGwtIT extends GWTTestCase {
   public void testClickingShowUndeclaredExceptionButtonAlertsWithExpectedMessage() {
     final CapturingAlerter alerter = new CapturingAlerter();
 
-    final PhoneBillGwt ui = new PhoneBillGwt(alerter);
+    final PacManGwt ui = new PacManGwt(alerter);
     ui.onModuleLoad();
 
     // Wait for UI widgets to be created
@@ -83,7 +83,7 @@ public class PhoneBillGwtIT extends GWTTestCase {
   public void testClickingShowDeclaredExceptionButtonAlertsWithExpectedMessage() {
     final CapturingAlerter alerter = new CapturingAlerter();
 
-    final PhoneBillGwt ui = new PhoneBillGwt(alerter);
+    final PacManGwt ui = new PacManGwt(alerter);
     ui.onModuleLoad();
 
     // Wait for UI widgets to be created
@@ -113,7 +113,7 @@ public class PhoneBillGwtIT extends GWTTestCase {
   public void testClickingShowClientSideExceptionButtonAlertsWithExpectedMessage() {
     final CapturingAlerter alerter = new CapturingAlerter();
 
-    final PhoneBillGwt ui = new PhoneBillGwt(alerter);
+    final PacManGwt ui = new PacManGwt(alerter);
     ui.onModuleLoad();
 
     // Wait for UI widgets to be created
@@ -162,7 +162,7 @@ public class PhoneBillGwtIT extends GWTTestCase {
     DomEvent.fireNativeEvent(event, button);
   }
 
-  private class CapturingAlerter implements PhoneBillGwt.Alerter {
+  private class CapturingAlerter implements PacManGwt.Alerter {
     private String message;
 
     @Override

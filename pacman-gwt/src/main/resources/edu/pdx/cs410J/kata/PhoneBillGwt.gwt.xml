@@ -2,7 +2,7 @@
   <inherits name="com.google.gwt.user.User"/>
   <inherits name='com.google.gwt.user.theme.standard.Standard'/>
   <inherits name='edu.pdx.cs410J.Projects'/>
-  <entry-point class="edu.pdx.cs410J.kata.client.PhoneBillGwt"/>
+  <entry-point class="edu.pdx.cs410J.kata.client.PacManGwt"/>
 
 
   <!-- http://www.gwtproject.org/doc/latest/DevGuideLogging.html -->

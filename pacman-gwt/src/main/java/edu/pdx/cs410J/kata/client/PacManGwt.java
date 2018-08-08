@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 /**
  * A basic GWT class that makes sure that we can send an Phone Bill back from the server
  */
-public class PhoneBillGwt implements EntryPoint {
+public class PacManGwt implements EntryPoint {
   private final Alerter alerter;
   private final PhoneBillServiceAsync phoneBillService;
   private final Logger logger;
@@ -38,7 +38,7 @@ public class PhoneBillGwt implements EntryPoint {
   @VisibleForTesting
   Button showClientSideExceptionButton;
   
-  public PhoneBillGwt() {
+  public PacManGwt() {
     this(new Alerter() {
       @Override
       public void alert(String message) {
@@ -48,7 +48,7 @@ public class PhoneBillGwt implements EntryPoint {
   }
 
   @VisibleForTesting
-  PhoneBillGwt(Alerter alerter) {
+  PacManGwt(Alerter alerter) {
     this.alerter = alerter;
     this.phoneBillService = GWT.create(PhoneBillService.class);
     this.logger = Logger.getLogger("phoneBill");

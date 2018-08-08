@@ -15,7 +15,7 @@
 
   <packaging>war</packaging>
   <version>Summer2018</version>
-  <name>Phone Bill GWT Application</name>
+  <name>Pac Man GWT Application</name>
   <repositories>
     <repository>
       <id>CS410J</id>
@@ -70,7 +70,7 @@
           <artifactId>gwt-maven-plugin</artifactId>
           <version>${gwt.version}</version>
             <configuration>
-                <runTarget>PhoneBillGwt.html</runTarget>
+                <runTarget>PacManGwt.html</runTarget>
                 <modules>
                   <module>edu.pdx.cs410J.kata.PhoneBillGwt</module>
                 </modules>

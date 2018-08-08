@@ -22,6 +22,6 @@
   </source>
 
   <!-- Need to define the servlet in .gwt.xml in order to use service in a GwtTest -->
-  <servlet path="/phoneBill" class="edu.pdx.cs410J.kata.server.PhoneBillServiceImpl"/>
+  <servlet path="/phoneBill" class="edu.pdx.cs410J.kata.server.PacManServiceImpl"/>
 
 </module>

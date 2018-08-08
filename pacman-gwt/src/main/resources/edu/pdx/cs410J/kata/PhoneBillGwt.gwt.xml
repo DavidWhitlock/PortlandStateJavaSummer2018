@@ -16,5 +16,5 @@
   <set-configuration-property name="compiler.emulatedStack.recordFileNames" value="true" />
   <set-configuration-property name="compiler.emulatedStack.recordLineNumbers" value="true" />
 
-  <servlet path="/phoneBill" class="edu.pdx.cs410J.kata.server.PhoneBillServiceImpl"/>
+  <servlet path="/phoneBill" class="edu.pdx.cs410J.kata.server.PacManServiceImpl"/>
 </module>

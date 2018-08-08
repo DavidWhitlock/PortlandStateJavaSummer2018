@@ -8,7 +8,7 @@ import edu.pdx.cs410J.kata.client.PacManService;
 /**
  * The server-side implementation of the Phone Bill service
  */
-public class PhoneBillServiceImpl extends RemoteServiceServlet implements PacManService
+public class PacManServiceImpl extends RemoteServiceServlet implements PacManService
 {
   @Override
   public PhoneBill getPhoneBill() {

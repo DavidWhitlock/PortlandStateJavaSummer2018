@@ -10,7 +10,7 @@ public class PacManServiceImplTest {
 
   @Test
   public void serviceReturnsExpectedPhoneBill() {
-    PhoneBillServiceImpl service = new PhoneBillServiceImpl();
+    PacManServiceImpl service = new PacManServiceImpl();
     PhoneBill bill = service.getPhoneBill();
     assertThat(bill.getPhoneCalls().size(), equalTo(1));
   }

@@ -5,7 +5,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 /**
  * The client-side interface to the phone bill service
  */
-public interface PhoneBillServiceAsync {
+public interface PacManServiceAsync {
 
   /**
    * Return the current date/time on the server

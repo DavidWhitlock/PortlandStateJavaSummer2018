@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class PacManGwt implements EntryPoint {
   private final Alerter alerter;
-  private final PhoneBillServiceAsync phoneBillService;
+  private final PacManServiceAsync phoneBillService;
   private final Logger logger;
   
 
@@ -50,7 +50,7 @@ public class PacManGwt implements EntryPoint {
   @VisibleForTesting
   PacManGwt(Alerter alerter) {
     this.alerter = alerter;
-    this.phoneBillService = GWT.create(PhoneBillService.class);
+    this.phoneBillService = GWT.create(PacManService.class);
     this.logger = Logger.getLogger("phoneBill");
     Logger.getLogger("").setLevel(Level.INFO);  // Quiet down the default logging
   }

@@ -7,7 +7,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  * A GWT remote service that returns a dummy Phone Bill
  */
 @RemoteServiceRelativePath("phoneBill")
-public interface PhoneBillService extends RemoteService {
+public interface PacManService extends RemoteService {
 
   /**
    * Returns the a dummy Phone Bill

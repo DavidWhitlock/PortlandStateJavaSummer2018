@@ -3,12 +3,12 @@ package edu.pdx.cs410J.kata.server;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import edu.pdx.cs410J.kata.client.PhoneBill;
 import edu.pdx.cs410J.kata.client.PhoneCall;
-import edu.pdx.cs410J.kata.client.PhoneBillService;
+import edu.pdx.cs410J.kata.client.PacManService;
 
 /**
  * The server-side implementation of the Phone Bill service
  */
-public class PhoneBillServiceImpl extends RemoteServiceServlet implements PhoneBillService
+public class PhoneBillServiceImpl extends RemoteServiceServlet implements PacManService
 {
   @Override
   public PhoneBill getPhoneBill() {

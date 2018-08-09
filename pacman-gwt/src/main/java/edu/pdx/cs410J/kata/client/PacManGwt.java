@@ -6,6 +6,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.UmbrellaException;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
@@ -20,6 +22,7 @@ public class PacManGwt implements EntryPoint {
   private final Alerter alerter;
   private final PacManServiceAsync phoneBillService;
   private final Logger logger;
+  private DeckPanel deck = new DeckPanel();
 
 
   public PacManGwt() {
@@ -66,25 +69,6 @@ public class PacManGwt implements EntryPoint {
     return throwable;
   }
 
-  private void addWidgets(VerticalPanel panel) {
-    Label welcome  = new Label("Edit Pac-Man board");
-    panel.add(welcome);
-
-    TextArea editor = new TextArea();
-    panel.add(createSettingsPanel(editor));
-
-    editor.setValue(
-      "+----+\n" +
-      "+    +\n" +
-      "+    +\n" +
-      "+ <  +\n" +
-      "+    +\n" +
-      "+----+\n".replace(' ', '.')
-    );
-    setEditorDimensions(6, 6, editor);
-    panel.add(editor);
-  }
-
   private HorizontalPanel createSettingsPanel(TextArea editor) {
     TextBox height = new TextBox();
     TextBox width = new TextBox();
@@ -117,9 +101,20 @@ public class PacManGwt implements EntryPoint {
     });
 
     settings.add(height);
-    settings.add(new Button("Play Game"));
+    Button play = new Button("Play Game");
+    settings.add(play);
+    play.addClickHandler(new ClickHandler() {
+      @Override
+      public void onClick(ClickEvent event) {
+        showGamePlayer();
+      }
+    });
 
     return settings;
+  }
+
+  private void showGamePlayer() {
+    this.deck.showWidget(1);
   }
 
   private void setEditorDimensions(TextBox width, TextBox height, TextArea editor) {
@@ -161,10 +156,71 @@ public class PacManGwt implements EntryPoint {
 
   private void setupUI() {
     RootPanel rootPanel = RootPanel.get();
-    VerticalPanel panel = new VerticalPanel();
-    rootPanel.add(panel);
+    rootPanel.add(deck);
 
-    addWidgets(panel);
+    deck.add(createGameEditor());
+    deck.add(createGamePlayer());
+
+    deck.showWidget(0);
+  }
+
+  private VerticalPanel createGamePlayer() {
+    VerticalPanel player = new VerticalPanel();
+
+
+    Label welcome = new Label("Play Pac-Man");
+    player.add(welcome);
+
+    HorizontalPanel panel = new HorizontalPanel();
+    panel.add(new Label("Score:"));
+    TextBox score = new TextBox();
+    score.setMaxLength(3);
+    score.setVisibleLength(3);
+    panel.add(score);
+
+    Button edit = new Button("Edit Game");
+    edit.addClickHandler(new ClickHandler() {
+      @Override
+      public void onClick(ClickEvent event) {
+        showGameEditor();
+      }
+    });
+
+    panel.add(edit);
+
+    player.add(panel);
+
+    TextArea board = new TextArea();
+    player.add(board);
+
+    return player;
+  }
+
+  private void showGameEditor() {
+    this.deck.showWidget(0);
+  }
+
+  private VerticalPanel createGameEditor() {
+    VerticalPanel editor = new VerticalPanel();
+
+    Label welcome  = new Label("Edit Pac-Man board");
+    editor.add(welcome);
+
+    TextArea gameEditor = new TextArea();
+    editor.add(createSettingsPanel(gameEditor));
+
+    gameEditor.setValue(
+      "+----+\n" +
+      "+    +\n" +
+      "+    +\n" +
+      "+ <  +\n" +
+      "+    +\n" +
+      "+----+\n".replace(' ', '.')
+    );
+    setEditorDimensions(6, 6, gameEditor);
+    editor.add(gameEditor);
+
+    return editor;
   }
 
   private void setUpUncaughtExceptionHandler() {

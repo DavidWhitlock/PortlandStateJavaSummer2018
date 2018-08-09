@@ -10,6 +10,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.UmbrellaException;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
 import java.util.logging.Level;
@@ -20,9 +21,10 @@ import java.util.logging.Logger;
  */
 public class PacManGwt implements EntryPoint {
   private final Alerter alerter;
-  private final PacManServiceAsync phoneBillService;
+  private final PacManServiceAsync pacManService;
   private final Logger logger;
   private DeckPanel deck = new DeckPanel();
+  private TextArea boardTextArea = new TextArea();
 
 
   public PacManGwt() {
@@ -37,7 +39,7 @@ public class PacManGwt implements EntryPoint {
   @VisibleForTesting
   PacManGwt(Alerter alerter) {
     this.alerter = alerter;
-    this.phoneBillService = GWT.create(PacManService.class);
+    this.pacManService = GWT.create(PacManService.class);
     this.logger = Logger.getLogger("phoneBill");
     Logger.getLogger("").setLevel(Level.INFO);  // Quiet down the default logging
   }
@@ -106,14 +108,40 @@ public class PacManGwt implements EntryPoint {
     play.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent event) {
-        showGamePlayer();
+        playGame(editor.getValue());
       }
     });
 
     return settings;
   }
 
-  private void showGamePlayer() {
+  private void playGame(String board) {
+    this.pacManService.createNewGame(board, new AsyncCallback<GameState>() {
+      @Override
+      public void onFailure(Throwable caught) {
+        alertOnException(caught);
+      }
+
+      @Override
+      public void onSuccess(GameState state) {
+        showGamePlayer(state);
+      }
+    });
+  }
+
+  private void showGamePlayer(GameState state) {
+
+    boardTextArea.setVisibleLines(state.getNumberOfRows());
+    boardTextArea.setCharacterWidth(state.getNumberOfColumns());
+
+    StringBuilder text = new StringBuilder();
+    for (int row = 0; row < state.getNumberOfRows(); row++) {
+      text.append(state.getRow(row));
+      text.append("\n");
+    }
+
+    boardTextArea.setValue(text.toString());
+
     this.deck.showWidget(1);
   }
 
@@ -190,8 +218,7 @@ public class PacManGwt implements EntryPoint {
 
     player.add(panel);
 
-    TextArea board = new TextArea();
-    player.add(board);
+    player.add(boardTextArea);
 
     return player;
   }

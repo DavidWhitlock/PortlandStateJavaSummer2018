@@ -1,8 +1,7 @@
 package edu.pdx.cs410J.kata.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import edu.pdx.cs410J.kata.client.PhoneBill;
-import edu.pdx.cs410J.kata.client.PhoneCall;
+import edu.pdx.cs410J.kata.client.GameState;
 import edu.pdx.cs410J.kata.client.PacManService;
 
 /**
@@ -10,22 +9,6 @@ import edu.pdx.cs410J.kata.client.PacManService;
  */
 public class PacManServiceImpl extends RemoteServiceServlet implements PacManService
 {
-  @Override
-  public PhoneBill getPhoneBill() {
-    PhoneBill phonebill = new PhoneBill();
-    phonebill.addPhoneCall(new PhoneCall());
-    return phonebill;
-  }
-
-  @Override
-  public void throwUndeclaredException() {
-    throw new IllegalStateException("Expected undeclared exception");
-  }
-
-  @Override
-  public void throwDeclaredException() throws IllegalStateException {
-    throw new IllegalStateException("Expected declared exception");
-  }
 
   /**
    * Log unhandled exceptions to standard error
@@ -39,4 +22,18 @@ public class PacManServiceImpl extends RemoteServiceServlet implements PacManSer
     super.doUnexpectedFailure(unhandled);
   }
 
+  @Override
+  public GameState createNewGame(String board) {
+    char[][] chars = new char[3][3];
+    chars[0][0] = '+';
+    chars[0][1] = '+';
+    chars[0][2] = '+';
+    chars[1][0] = ' ';
+    chars[1][1] = '<';
+    chars[1][2] = ' ';
+    chars[2][0] = '+';
+    chars[2][1] = '+';
+    chars[2][2] = '+';
+    return new GameState(chars);
+  }
 }

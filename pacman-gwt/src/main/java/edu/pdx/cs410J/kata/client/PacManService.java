@@ -9,19 +9,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("pacman")
 public interface PacManService extends RemoteService {
 
-  /**
-   * Returns the a dummy Phone Bill
-   */
-  public PhoneBill getPhoneBill();
-
-  /**
-   * Always throws an undeclared exception so that we can see GWT handles it.
-   */
-  void throwUndeclaredException();
-
-  /**
-   * Always throws a declared exception so that we can see GWT handles it.
-   */
-  void throwDeclaredException() throws IllegalStateException;
-
+  public GameState createNewGame(String board);
 }

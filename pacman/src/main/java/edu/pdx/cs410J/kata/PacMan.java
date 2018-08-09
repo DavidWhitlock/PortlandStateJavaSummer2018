@@ -18,7 +18,7 @@ public class PacMan {
     ).replace(' ', '.');
 
   public static void main(String[] args) {
-    GameBoard board = new GameBoard(BOARD);
+    PacManGame board = new PacManGame(BOARD);
 
     printBoard(board);
 
@@ -38,7 +38,7 @@ public class PacMan {
     System.out.println("Congratulations!  You won the game.");
   }
 
-  private static void setDirectionFromInput(String input, GameBoard board) {
+  private static void setDirectionFromInput(String input, PacManGame board) {
     if (input.length() == 0) {
       return;
 
@@ -61,7 +61,7 @@ public class PacMan {
 
   }
 
-  private static void printBoard(GameBoard board) {
+  private static void printBoard(PacManGame board) {
     System.out.println("");
     System.out.println("Score: " + board.getScore());
     board.forEachRow(System.out::println);

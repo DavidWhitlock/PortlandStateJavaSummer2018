@@ -19,50 +19,50 @@ public class PacManTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void boardWithNoPacManThrowsIllegalArgumentException() {
-    new GameBoard("");
+    new PacManGame("");
   }
 
   @Test
   public void pacManIsFacingWest() {
-    GameBoard board = new GameBoard(">");
+    PacManGame board = new PacManGame(">");
     assertThat(board.getPacManDirection(), equalTo(PacManDirection.WEST));
   }
 
   @Test
   public void pacManIsFacingEast() {
-    GameBoard board = new GameBoard("<");
+    PacManGame board = new PacManGame("<");
     assertThat(board.getPacManDirection(), equalTo(PacManDirection.EAST));
   }
 
   @Test
   public void pacManIsFacingNorth() {
-    GameBoard board = new GameBoard("V");
+    PacManGame board = new PacManGame("V");
     assertThat(board.getPacManDirection(), equalTo(PacManDirection.NORTH));
   }
 
   @Test
   public void pacManIsFacingSouth() {
-    GameBoard board = new GameBoard("^");
+    PacManGame board = new PacManGame("^");
     assertThat(board.getPacManDirection(), equalTo(PacManDirection.SOUTH));
   }
 
   @Test
   public void pacManFacingWestCanMoveIntoAnEmptyCell() {
-    GameBoard board = new GameBoard(" >");
+    PacManGame board = new PacManGame(" >");
     board.tick();
     assertThat(board.getRow(0), equalTo("> "));
   }
 
   @Test
   public void pacManFacingEastCanMoveIntoAnEmptyCell() {
-    GameBoard board = new GameBoard("< ");
+    PacManGame board = new PacManGame("< ");
     board.tick();
     assertThat(board.getRow(0), equalTo(" <"));
   }
 
   @Test
   public void pacManFacingSouthCanMoveIntoAnEmptyCell() {
-    GameBoard board =
+    PacManGame board =
       line("^").
       line(" ").board();
     board.tick();
@@ -76,7 +76,7 @@ public class PacManTest {
 
   @Test
   public void pacManFacingNorthCanMoveIntoAnEmptyCell() {
-    GameBoard board =
+    PacManGame board =
       line(" ").
       line("V").board();
     board.tick();
@@ -86,21 +86,21 @@ public class PacManTest {
 
   @Test
   public void wallPreventsPacManFromMovingEast() {
-    GameBoard board = new GameBoard("<|");
+    PacManGame board = new PacManGame("<|");
     board.tick();
     assertThat(board.getRow(0), equalTo("<|"));
   }
 
   @Test
   public void wallPreventsPacManFromMovingWest() {
-    GameBoard board = new GameBoard("|>");
+    PacManGame board = new PacManGame("|>");
     board.tick();
     assertThat(board.getRow(0), equalTo("|>"));
   }
 
   @Test
   public void wallPreventsPacManFromMovingNorth() {
-    GameBoard board =
+    PacManGame board =
       line("-").
       line("V").board();
     board.tick();
@@ -110,7 +110,7 @@ public class PacManTest {
 
   @Test
   public void wallPreventsPacManFromMovingSouth() {
-    GameBoard board =
+    PacManGame board =
       line("^").
       line("-").board();
     board.tick();
@@ -120,21 +120,21 @@ public class PacManTest {
 
   @Test
   public void pacManFacingWestAtTheEdgeOfTheBoardWrapsAround() {
-    GameBoard board = new GameBoard("> ");
+    PacManGame board = new PacManGame("> ");
     board.tick();
     assertThat(board.getRow(0), equalTo(" >"));
   }
 
   @Test
   public void pacManFacingEastAtTheEdgeOfTheBoardWrapsAround() {
-    GameBoard board = new GameBoard(" <");
+    PacManGame board = new PacManGame(" <");
     board.tick();
     assertThat(board.getRow(0), equalTo("< "));
   }
 
   @Test
   public void pacManFacingNorthAtTheEdgeOfTheBoardWrapsAround() {
-    GameBoard board =
+    PacManGame board =
       line("V").
       line(" ").board();
     board.tick();
@@ -144,7 +144,7 @@ public class PacManTest {
 
   @Test
   public void pacManFacingSouthAtTheEdgeOfTheBoardWrapsAround() {
-    GameBoard board =
+    PacManGame board =
       line(" ").
       line("^").board();
     board.tick();
@@ -154,13 +154,13 @@ public class PacManTest {
 
   @Test
   public void initiallyScoreIsZero() {
-    GameBoard board = line(">").board();
+    PacManGame board = line(">").board();
     assertThat(board.getScore(), equalTo(0));
   }
 
   @Test
   public void pacManCanEatAPellet() {
-    GameBoard board = line("<..").board();
+    PacManGame board = line("<..").board();
     board.tick();
     assertThat(board.getRow(0), equalTo(" <."));
 
@@ -170,7 +170,7 @@ public class PacManTest {
 
   @Test
   public void whenPacManEatsAPelletScoreIncreasesBy10() {
-    GameBoard board = line("<..").board();
+    PacManGame board = line("<..").board();
     board.tick();
     assertThat(board.getScore(), equalTo(10));
 
@@ -180,7 +180,7 @@ public class PacManTest {
 
   @Test
   public void whenPacManEatsAPelletPelletCountDecreasesByOne() {
-    GameBoard board = line("<..").board();
+    PacManGame board = line("<..").board();
     assertThat(board.getPelletCount(), equalTo(2));
 
     board.tick();
@@ -192,21 +192,21 @@ public class PacManTest {
 
   @Test
   public void pacManTurnsNorth() {
-    GameBoard board = line(">").board();
+    PacManGame board = line(">").board();
     board.setPacManDirection(PacManDirection.NORTH);
     assertThat(board.getRow(0), equalTo("V"));
   }
 
   @Test
   public void pacManTurnsSouth() {
-    GameBoard board = line(">").board();
+    PacManGame board = line(">").board();
     board.setPacManDirection(PacManDirection.SOUTH);
     assertThat(board.getRow(0), equalTo("^"));
   }
 
   @Test
   public void forEachRowReturnsExpectedRow() {
-    GameBoard board =
+    PacManGame board =
       line(" ").
       line("^").
       line(".").
@@ -234,8 +234,8 @@ public class PacManTest {
       return this;
     }
 
-    public GameBoard board() {
-      return new GameBoard(this.sb.toString());
+    public PacManGame board() {
+      return new PacManGame(this.sb.toString());
     }
   }
 }

@@ -2,7 +2,7 @@ package edu.pdx.cs410J.kata;
 
 import java.util.function.Consumer;
 
-public class GameBoard {
+public class PacManGame {
   private char[][] board;
 
   private int pacManColumn;
@@ -11,7 +11,7 @@ public class GameBoard {
   private int score = 0;
   private int pelletCount = 0;
 
-  public GameBoard(String board) {
+  public PacManGame(String board) {
     initializeBoard(board);
     locatePacMan();
     countPellets();

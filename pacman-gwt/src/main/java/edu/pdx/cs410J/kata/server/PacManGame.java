@@ -2,6 +2,7 @@ package edu.pdx.cs410J.kata.server;
 
 import edu.pdx.cs410J.kata.client.GameState;
 
+import java.util.Date;
 import java.util.function.Consumer;
 
 public class PacManGame {
@@ -222,7 +223,7 @@ public class PacManGame {
     }
   }
 
-  public GameState getGameState() {
-    return new GameState(this.board);
+  public GameState getGameState(Date endTime) {
+    return new GameState(this.board, endTime);
   }
 }

@@ -1,13 +1,16 @@
 package edu.pdx.cs410J.kata.client;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class GameState implements Serializable {
 
+  private Date endTime;
   private char[][] board;
 
-  public GameState(char[][] board) {
+  public GameState(char[][] board, Date endTime) {
     this.board = board;
+    this.endTime = endTime;
   }
 
   public GameState() {
@@ -24,4 +27,9 @@ public class GameState implements Serializable {
   public char[] getRow(int row) {
     return this.board[row];
   }
+
+  public Date getEndTime() {
+    return this.endTime;
+  }
+
 }

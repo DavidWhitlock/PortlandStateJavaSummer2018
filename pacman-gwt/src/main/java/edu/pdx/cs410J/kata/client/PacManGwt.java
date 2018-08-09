@@ -9,10 +9,12 @@ import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.UmbrellaException;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,6 +27,9 @@ public class PacManGwt implements EntryPoint {
   private final Logger logger;
   private DeckPanel deck = new DeckPanel();
   private TextArea boardTextArea = new TextArea();
+  private Date endTime;
+  private Label timeRemaining = new Label();
+  private DateTimeFormat format =DateTimeFormat.getFormat("MM/dd/yyyy hh:mm a");
 
 
   public PacManGwt() {
@@ -116,7 +121,7 @@ public class PacManGwt implements EntryPoint {
   }
 
   private void playGame(String board) {
-    this.pacManService.createNewGame(board, new AsyncCallback<GameState>() {
+    this.pacManService.createNewGame(board, endTime, new AsyncCallback<GameState>() {
       @Override
       public void onFailure(Throwable caught) {
         alertOnException(caught);
@@ -141,6 +146,8 @@ public class PacManGwt implements EntryPoint {
     }
 
     boardTextArea.setValue(text.toString());
+
+    this.timeRemaining.setText(format.format(state.getEndTime()));
 
     this.deck.showWidget(1);
   }
@@ -199,6 +206,8 @@ public class PacManGwt implements EntryPoint {
     Label welcome = new Label("Play Pac-Man");
     player.add(welcome);
 
+    player.add(timeRemaining);
+
     HorizontalPanel panel = new HorizontalPanel();
     panel.add(new Label("Score:"));
     TextBox score = new TextBox();
@@ -234,6 +243,7 @@ public class PacManGwt implements EntryPoint {
     editor.add(welcome);
 
     TextArea gameEditor = new TextArea();
+    editor.add(createTimeRemainingPanel());
     editor.add(createSettingsPanel(gameEditor));
 
     gameEditor.setValue(
@@ -248,6 +258,30 @@ public class PacManGwt implements EntryPoint {
     editor.add(gameEditor);
 
     return editor;
+  }
+
+  private IsWidget createTimeRemainingPanel() {
+    HorizontalPanel panel = new HorizontalPanel();
+    panel.add(new Label("Game ends on :"));
+    TextBox endTime = new TextBox();
+    endTime.setVisibleLength(20);
+
+    endTime.addChangeHandler(new ChangeHandler() {
+      @Override
+      public void onChange(ChangeEvent event) {
+        String text = endTime.getText();
+        try {
+          PacManGwt.this.endTime = format.parseStrict(text);
+
+        } catch (IllegalArgumentException ex) {
+          alerter.alert("Invalid date: " + text);
+        }
+      }
+    });
+
+    panel.add(endTime);
+
+    return panel;
   }
 
   private void setUpUncaughtExceptionHandler() {

@@ -4,16 +4,10 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.UmbrellaException;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.*;
 
-import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,18 +20,6 @@ public class PacManGwt implements EntryPoint {
   private final Logger logger;
   
 
-  @VisibleForTesting
-  Button showPhoneBillButton;
-
-  @VisibleForTesting
-  Button showUndeclaredExceptionButton;
-
-  @VisibleForTesting
-  Button showDeclaredExceptionButton;
-
-  @VisibleForTesting
-  Button showClientSideExceptionButton;
-  
   public PacManGwt() {
     this(new Alerter() {
       @Override
@@ -83,101 +65,36 @@ public class PacManGwt implements EntryPoint {
   }
 
   private void addWidgets(VerticalPanel panel) {
-    showPhoneBillButton = new Button("Show Phone Bill");
-    showPhoneBillButton.addClickHandler(new ClickHandler() {
-      @Override
-      public void onClick(ClickEvent clickEvent) {
-        showPhoneBill();
-      }
-    });
+    Label welcome  = new Label("Edit Pac-Man board");
+    panel.add(welcome);
 
-    showUndeclaredExceptionButton = new Button("Show undeclared exception");
-    showUndeclaredExceptionButton.addClickHandler(new ClickHandler() {
-      @Override
-      public void onClick(ClickEvent clickEvent) {
-        showUndeclaredException();
-      }
-    });
+    panel.add(createSettingsPanel());
 
-    showDeclaredExceptionButton = new Button("Show declared exception");
-    showDeclaredExceptionButton.addClickHandler(new ClickHandler() {
-      @Override
-      public void onClick(ClickEvent clickEvent) {
-        showDeclaredException();
-      }
-    });
-
-    showClientSideExceptionButton= new Button("Show client-side exception");
-    showClientSideExceptionButton.addClickHandler(new ClickHandler() {
-      @Override
-      public void onClick(ClickEvent clickEvent) {
-        throwClientSideException();
-      }
-    });
-
-    panel.add(showPhoneBillButton);
-    panel.add(showUndeclaredExceptionButton);
-    panel.add(showDeclaredExceptionButton);
-    panel.add(showClientSideExceptionButton);
+    panel.add(new TextArea());
   }
 
-  private void throwClientSideException() {
-    logger.info("About to throw a client-side exception");
-    throw new IllegalStateException("Expected exception on the client side");
+  private HorizontalPanel createSettingsPanel() {
+    HorizontalPanel settings = new HorizontalPanel();
+    settings.add(new Label("Width:"));
+
+    TextBox width = new TextBox();
+    width.setMaxLength(2);
+    width.setVisibleLength(2);
+
+    settings.add(width);
+
+    settings.add(new Label("Height"));
+
+    TextBox height = new TextBox();
+    height.setMaxLength(2);
+    height.setVisibleLength(2);
+
+    settings.add(height);
+    settings.add(new Button("Play Game"));
+
+    return settings;
   }
 
-  private void showUndeclaredException() {
-    logger.info("Calling throwUndeclaredException");
-    phoneBillService.throwUndeclaredException(new AsyncCallback<Void>() {
-      @Override
-      public void onFailure(Throwable ex) {
-        alertOnException(ex);
-      }
-
-      @Override
-      public void onSuccess(Void aVoid) {
-        alerter.alert("This shouldn't happen");
-      }
-    });
-  }
-
-  private void showDeclaredException() {
-    logger.info("Calling throwDeclaredException");
-    phoneBillService.throwDeclaredException(new AsyncCallback<Void>() {
-      @Override
-      public void onFailure(Throwable ex) {
-        alertOnException(ex);
-      }
-
-      @Override
-      public void onSuccess(Void aVoid) {
-        alerter.alert("This shouldn't happen");
-      }
-    });
-  }
-
-  private void showPhoneBill() {
-    logger.info("Calling getPhoneBill");
-    phoneBillService.getPhoneBill(new AsyncCallback<PhoneBill>() {
-
-      @Override
-      public void onFailure(Throwable ex) {
-        alertOnException(ex);
-      }
-
-      @Override
-      public void onSuccess(PhoneBill phoneBill) {
-        StringBuilder sb = new StringBuilder(phoneBill.toString());
-        Collection<PhoneCall> calls = phoneBill.getPhoneCalls();
-        for (PhoneCall call : calls) {
-          sb.append(call);
-          sb.append("\n");
-        }
-        alerter.alert(sb.toString());
-      }
-    });
-  }
-  
   @Override
   public void onModuleLoad() {
     setUpUncaughtExceptionHandler();

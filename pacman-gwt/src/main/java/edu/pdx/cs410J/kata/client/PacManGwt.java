@@ -70,7 +70,18 @@ public class PacManGwt implements EntryPoint {
 
     panel.add(createSettingsPanel());
 
-    panel.add(new TextArea());
+    TextArea editor = new TextArea();
+    editor.setValue(
+      "+----+\n" +
+      "+    +\n" +
+      "+    +\n" +
+      "+ <  +\n" +
+      "+    +\n" +
+      "+----+\n".replace(' ', '.')
+    );
+    editor.setCharacterWidth(6);
+    editor.setVisibleLines(6);
+    panel.add(editor);
   }
 
   private HorizontalPanel createSettingsPanel() {
@@ -80,6 +91,7 @@ public class PacManGwt implements EntryPoint {
     TextBox width = new TextBox();
     width.setMaxLength(2);
     width.setVisibleLength(2);
+    width.setValue("6");
 
     settings.add(width);
 
@@ -88,6 +100,7 @@ public class PacManGwt implements EntryPoint {
     TextBox height = new TextBox();
     height.setMaxLength(2);
     height.setVisibleLength(2);
+    height.setValue("6");
 
     settings.add(height);
     settings.add(new Button("Play Game"));

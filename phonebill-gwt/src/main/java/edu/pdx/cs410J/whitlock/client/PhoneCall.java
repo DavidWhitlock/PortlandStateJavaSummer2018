@@ -27,7 +27,7 @@ public class PhoneCall extends AbstractPhoneCall {
 
   @Override
   public String getStartTimeString() {
-    return "START " + getStartTime();
+    return getStartTime().toString();
   }
 
   @Override

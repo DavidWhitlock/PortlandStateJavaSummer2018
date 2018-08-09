@@ -4,6 +4,8 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.shared.UmbrellaException;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
@@ -18,7 +20,7 @@ public class PacManGwt implements EntryPoint {
   private final Alerter alerter;
   private final PacManServiceAsync phoneBillService;
   private final Logger logger;
-  
+
 
   public PacManGwt() {
     this(new Alerter() {
@@ -68,9 +70,9 @@ public class PacManGwt implements EntryPoint {
     Label welcome  = new Label("Edit Pac-Man board");
     panel.add(welcome);
 
-    panel.add(createSettingsPanel());
-
     TextArea editor = new TextArea();
+    panel.add(createSettingsPanel(editor));
+
     editor.setValue(
       "+----+\n" +
       "+    +\n" +
@@ -79,33 +81,67 @@ public class PacManGwt implements EntryPoint {
       "+    +\n" +
       "+----+\n".replace(' ', '.')
     );
-    editor.setCharacterWidth(6);
-    editor.setVisibleLines(6);
+    setEditorDimensions(6, 6, editor);
     panel.add(editor);
   }
 
-  private HorizontalPanel createSettingsPanel() {
+  private HorizontalPanel createSettingsPanel(TextArea editor) {
+    TextBox height = new TextBox();
+    TextBox width = new TextBox();
+
     HorizontalPanel settings = new HorizontalPanel();
     settings.add(new Label("Width:"));
 
-    TextBox width = new TextBox();
     width.setMaxLength(2);
     width.setVisibleLength(2);
     width.setValue("6");
+    width.addChangeHandler(new ChangeHandler() {
+      @Override
+      public void onChange(ChangeEvent event) {
+        setEditorDimensions(width, height, editor);
+      }
+    });
 
     settings.add(width);
 
     settings.add(new Label("Height"));
 
-    TextBox height = new TextBox();
     height.setMaxLength(2);
     height.setVisibleLength(2);
     height.setValue("6");
+    height.addChangeHandler(new ChangeHandler() {
+      @Override
+      public void onChange(ChangeEvent event) {
+        setEditorDimensions(width, height, editor);
+      }
+    });
 
     settings.add(height);
     settings.add(new Button("Play Game"));
 
     return settings;
+  }
+
+  private void setEditorDimensions(TextBox width, TextBox height, TextArea editor) {
+    int h = getIntValue(height, editor.getVisibleLines());
+    int w = getIntValue(width, editor.getCharacterWidth());
+    setEditorDimensions(w, h, editor);
+  }
+
+  private void setEditorDimensions(int width, int height, TextArea editor) {
+    editor.setVisibleLines(height);
+    editor.setCharacterWidth(width);
+  }
+
+  private int getIntValue(TextBox textBox, int currentValue) {
+    String value = textBox.getValue();
+    try {
+      return Integer.parseInt(value);
+
+    } catch (NumberFormatException ex) {
+      alerter.alert("Invalid integer: " + value);
+      return currentValue;
+    }
   }
 
   @Override

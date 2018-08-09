@@ -24,16 +24,7 @@ public class PacManServiceImpl extends RemoteServiceServlet implements PacManSer
 
   @Override
   public GameState createNewGame(String board) {
-    char[][] chars = new char[3][3];
-    chars[0][0] = '+';
-    chars[0][1] = '+';
-    chars[0][2] = '+';
-    chars[1][0] = ' ';
-    chars[1][1] = '<';
-    chars[1][2] = ' ';
-    chars[2][0] = '+';
-    chars[2][1] = '+';
-    chars[2][2] = '+';
-    return new GameState(chars);
+    PacManGame game = new PacManGame(board);
+    return game.getGameState();
   }
 }

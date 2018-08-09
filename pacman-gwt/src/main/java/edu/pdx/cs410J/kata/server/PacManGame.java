@@ -1,5 +1,7 @@
 package edu.pdx.cs410J.kata.server;
 
+import edu.pdx.cs410J.kata.client.GameState;
+
 import java.util.function.Consumer;
 
 public class PacManGame {
@@ -218,5 +220,9 @@ public class PacManGame {
     for (char[] row : this.board) {
       consumer.accept(new String(row));
     }
+  }
+
+  public GameState getGameState() {
+    return new GameState(this.board);
   }
 }

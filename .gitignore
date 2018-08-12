@@ -33,3 +33,7 @@ dependency-reduced-pom.xml
 
 # Emacs backup files
 *.~*~
+
+#GWT files
+gwt-unitCache
+war
